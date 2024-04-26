@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-workflow_path='/hpc/diaggen/software/development/NextflowONT'
+workflow_path='/hpc/diaggen/software/development/NextflowSMA'
 
 # Set input and output dirs
 input_path=`realpath -e $1`
@@ -43,9 +43,10 @@ sbatch <<EOT
 #SBATCH --mail-user $email
 #SBATCH --mail-type FAIL
 #SBATCH --export=NONE
-#SBATCH --account=diaggen
 
-/hpc/diaggen/software/tools/nextflow run $workflow_path/ONT_wgs_all.nf \
+export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
+
+$workflow_path/tools/nextflow/nextflow run $workflow_path/ONT_wgs_all.nf \
 -c $workflow_path/ONT_wgs_all.config \
 --input_path $input_path \
 --outdir $output \
