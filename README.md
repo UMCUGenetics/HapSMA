@@ -3,6 +3,11 @@ Nextflow Oxford Nanopore Technologies workflow\
 Note: this workflow hase been tested on R9.4.1 sequencing data with guppy_6.1.2 basecalling only.\
 Note: current workflow setup has been tested on Rocky Linux 8 combined with Slurm Workload Manager.
 
+#### Install OpenJDK and Nextflow
+```bash
+sh install.sh
+```
+
 #### Configure paths before use
 ONT_wgs_all.config:
 <pre>
@@ -15,6 +20,8 @@ ONT_wgs_all.config:
   guppy_path            full path to guppy folder
   runOptions            run options for singularity
   cacheDir              singularity image cache folder
+
+  modify {profiles} according to local setttings
 </pre>
 
 #### Running ONT workflow
