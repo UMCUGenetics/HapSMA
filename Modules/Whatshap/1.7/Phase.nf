@@ -6,7 +6,7 @@ process Phase {
     shell = ['/bin/bash', '-euo', 'pipefail']
 
     input:
-        tuple(sample_id, path(bam_file), path(bai_file), path(vcf_file), ploidy)
+        tuple(val(sample_id), path(bam_file), path(bai_file), path(vcf_file), val(ploidy))
 
     output:
         tuple(val(sample_id), path("${vcf_file.simpleName}_WH.vcf"), val(ploidy))
