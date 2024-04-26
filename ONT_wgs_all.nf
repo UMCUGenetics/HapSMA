@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-nextflow.preview.dsl=2
+nextflow.enable.dsl=2
 
 // Utils modules
 include { AddReplaceReadgroup as Samtools_AddReplaceReadgroup } from './Modules/Samtools/1.15/AddReplaceReadgroup.nf'
