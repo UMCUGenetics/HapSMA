@@ -1,5 +1,5 @@
-# NextflowONT
-Nextflow Oxford Nanopore Technologies workflow\
+# NextflowSMA
+Workflow SMA for Oxford Nanopore Technologies sequencing data\
 Note: this workflow hase been tested on R9.4.1 sequencing data with guppy_6.1.2 basecalling only.\
 Note: current workflow setup has been tested on Rocky Linux 8 combined with Slurm Workload Manager.
 
