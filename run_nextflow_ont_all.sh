@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-workflow_path='/hpc/diaggen/software/development/NextflowSMA'
+workflow_path='{full path to checkout of repository}'
 
 # Set input and output dirs
 input_path=`realpath -e $1`
