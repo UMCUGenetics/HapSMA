@@ -14,6 +14,6 @@ process GetPhaseSet {
         """
         $baseDir/assets/get_phaseset.py \
             $vcf_file \
-            $params.psv_region | tr -d '\n'
+            $params.phaseset_region | tr -d '\n'
         """
 }
