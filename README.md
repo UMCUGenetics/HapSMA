@@ -11,17 +11,20 @@ sh install.sh
 #### Configure paths before use
 ONT_wgs_all.config:
 <pre>
-  genome_fasta          full path to reference genome fasta (.fasta/.fa/.fna)
-  genome_mapping_index  full path to reference genome minimap2 index (.mmi)
-  calling_target_bed    full path to "position specific" variant calling (.bed)
-  calling_target_region region interest for variant calling based on reference genome (chr:start-stop)
-  homopolymer_bed       full path to homopolymer region of reference genome (.bed)
-  guppy_basecaller_path full path to guppy_basecaller executable
-  guppy_path            full path to guppy folder
-  runOptions            run options for singularity
-  cacheDir              singularity image cache folder
+  genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna)
+  genome_mapping_index  	full path to reference genome minimap2 index (.mmi)
+  calling_target_bed    	full path to "position specific" variant calling (.bed)
+  calling_target_region 	region interest for variant calling based on reference genome (chr:start-stop, i.e. chr5:71274893-71447410)
+  phaseset_region		region interest to determine phaseset (chr:start-stop, i.e. chr5:71392465-71409463)
+  homopolymer_bed       	full path to homopolymer region of reference genome (.bed)
+  guppy_basecaller_path 	full path to guppy_basecaller executable
+  guppy_path            	full path to guppy folder
+  guppy_basecaller_config 	name of basecalling model (.cfg, i.e. dna_r9.4.1_450bps_modbases_5mc_cg_sup.cfg)
+  runOptions          		run options for singularity
+  cacheDir              	full path to singularity image cache folder
 
   modify {profiles} according to local setttings
+  note that  the reference genome (genome_fasta) needs an indexing file (.fai) and a dictionary file (.dict)
 </pre>
 
 #### Running ONT workflow
