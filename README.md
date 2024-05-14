@@ -36,7 +36,7 @@ nextflow run ONT.nf -c ONT.config --input_path <input_path> --outdir <output_dir
 <pre>
 Input path is full path to either FAST5 or BAM file, depending on method (see below).
   * rebase              assumes raw data folder with fast5_pass and fast5_fail subfolder.
-  * bam(_remap)         assumes Guppy output folder with subfolder pass in which BAM files are located.
+  * bam(_remap)         assumes Guppy output folder with subfolder pass/ in which BAM files are located.
   * bam_single(_remap)  assumes a single BAM file per input folder.
 </pre>
 ##### --method
