@@ -14,6 +14,11 @@ process FilterSamReads {
 
     script:
         """
-        picard -Xmx${task.memory.toGiga()-4}G FilterSamReads TMP_DIR=\$TMPDIR INPUT=${bam_file} OUTPUT=${bam_file.baseName}_filtered.bam READ_LIST_FILE=${duplex_reads} ${params.optional}
+        picard -Xmx${task.memory.toGiga()-4}G FilterSamReads \
+        TMP_DIR=\$TMPDIR \
+        INPUT=${bam_file} \
+        OUTPUT=${bam_file.baseName}_filtered.bam \
+        READ_LIST_FILE=${duplex_reads} \
+        ${params.optional}
         """
 }
