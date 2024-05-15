@@ -9,10 +9,9 @@ process FilterVcfs {
         tuple(val(sample_id), path(bam_file), path(bai_file), path(vcf_file), path(vcf_index), val(ploidy))
         
     output:
-        tuple (val(sample_id), path(bam_file), path(bai_file), path("${vcf_file.simpleName}_snv.vcf"), val(ploidy))
+        tuple(val(sample_id), path(bam_file), path(bai_file), path("${vcf_file.simpleName}_snv.vcf"), val(ploidy))
         
     script:
-        //def input_files = vcf_files.collect{"$it"}.join(" --V ")
         """
         gatk --java-options "-Xmx${task.memory.toGiga()-4}G -Djava.io.tmpdir=\$TMPDIR" SelectVariants \
             --reference $params.genome \
