@@ -12,6 +12,12 @@ process LongshotPhase {
 
     script:
         """
-        longshot --out_bam ${bam_file.simpleName}_phased.bam --bam ${bam_file} --ref ${params.genome_fasta} --out ${bam_file.simpleName}_phased.vcf $params.longshotparams > ${bam_file.simpleName}.out
+        longshot \
+        --out_bam ${bam_file.simpleName}_phased.bam \
+        --bam ${bam_file} \
+        --ref ${params.genome_fasta} \
+        --out ${bam_file.simpleName}_phased.vcf \
+        $params.longshotparams \
+        > ${bam_file.simpleName}.out
         """
 }
