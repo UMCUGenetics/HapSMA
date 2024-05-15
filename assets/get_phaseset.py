@@ -40,7 +40,7 @@ if __name__ == "__main__":
         '--freq',
         type=float,
         default=0.65,
-        help='threshold to determine most likely PS if multiple are detected in roi [default = 0.7]'
+        help='threshold to determine most likely PS if multiple are detected in roi [default = 0.65]'
     )
     args = parser.parse_args()
     phaseset = ParseVCF(args.input_vcf, args.roi)
