@@ -8,7 +8,7 @@ process LongshotPhase {
         tuple(path(bam_file), path(bai_file))
     
     output:
-        tuple (path("${bam_file.simpleName}_phased.bam"), path("${bam_file.simpleName}_phased.vcf"))
+        tuple(path("${bam_file.simpleName}_phased.bam"), path("${bam_file.simpleName}_phased.vcf"))
 
     script:
         """
