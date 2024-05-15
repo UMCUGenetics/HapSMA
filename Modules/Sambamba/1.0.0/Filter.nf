@@ -15,7 +15,10 @@ process FilterROI {
         if( params.roi )
             roi_slice = " $params.roi "
         """
-        sambamba view -t ${task.cpus} -f bam ${bam_file} $roi_slice -o  ${bam_file.simpleName}_roi.bam
+        sambamba view -t ${task.cpus} -f bam \
+        ${bam_file} \
+        $roi_slice \
+        -o  ${bam_file.simpleName}_roi.bam
         """
 }
 
@@ -33,7 +36,10 @@ process FilterCondition {
 
     script:
         """
-        sambamba view -t ${task.cpus} -f bam -F "${params.conditions}" ${bam_file} -o  ${bam_file.simpleName}_condition.bam
+        sambamba view -t ${task.cpus} -f bam \
+        -F "${params.conditions}" \
+        ${bam_file} \
+        -o  ${bam_file.simpleName}_condition.bam
         """
 }
 
@@ -51,6 +57,9 @@ process FilterHaplotypePhaseset {
 
     script:
         """
-        sambamba view -t ${task.cpus} -f bam -F "[HP] == ${hp} and [PS] == ${ps}" ${bam_file} -o  ${bam_file.simpleName}_hap${hp}_ps${ps}.bam
+        sambamba view -t ${task.cpus} -f bam \
+        -F "[HP] == ${hp} and [PS] == ${ps}" \
+        ${bam_file} \
+        -o  ${bam_file.simpleName}_hap${hp}_ps${ps}.bam
         """
 }
