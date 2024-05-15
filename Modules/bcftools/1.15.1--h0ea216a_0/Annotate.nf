@@ -13,6 +13,8 @@ process Annotate {
 
     script:
         """
-        echo "$params.info_field_homopolymer_bed" | bcftools annotate -a $params.homopolymer_bed -c $params.bed_colums -h /dev/stdin $vcf_file > "${vcf_file.simpleName}_homopolymer.vcf"
+        echo "$params.info_field_homopolymer_bed" | \
+        bcftools annotate -a $params.homopolymer_bed -c $params.bed_colums -h /dev/stdin $vcf_file \
+        > "${vcf_file.simpleName}_homopolymer.vcf"
         """
 }
