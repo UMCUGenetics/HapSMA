@@ -20,13 +20,12 @@ ONT_wgs_all.config:
   runOptions                    run options for singularity
   cacheDir                      full path to singularity image cache folder
 
-  Only needed in case of the rebase(calling) method:
-  genome_mapping_index          full path to reference genome minimap2 index (.mmi).
-  guppy_basecaller_path 	full path to guppy_basecaller executable.
-  guppy_basecaller_config 	full path to basecalling model file to be used (.cfg).
-
-
   modify {profiles} according to local setttings
+
+  Only needed in case of the rebase(calling) method:
+  genome_mapping_index          full path to reference genome minimap2 index (.mmi)
+  guppy_basecaller_path 	full path to guppy_basecaller executable
+  guppy_basecaller_config 	full path to basecalling model file to be used (.cfg)
 </pre>
 
 #### Running ONT workflow
