@@ -11,20 +11,22 @@ sh install.sh
 #### Configure paths before use
 ONT_wgs_all.config:
 <pre>
-  genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna)
-  genome_mapping_index  	full path to reference genome minimap2 index (.mmi)
-  calling_target_bed    	full path to "position specific" variant calling (.bed)
-  calling_target_region 	region interest for variant calling based on reference genome (chr:start-stop, i.e. chr5:71274893-71447410)
-  phaseset_region		region interest to determine phaseset (chr:start-stop, i.e. chr5:71392465-71409463)
-  homopolymer_bed       	full path to homopolymer region of reference genome (.bed)
-  guppy_basecaller_path 	full path to guppy_basecaller executable
-  guppy_path            	full path to guppy folder
-  guppy_basecaller_config 	name of basecalling model (.cfg, i.e. dna_r9.4.1_450bps_modbases_5mc_cg_sup.cfg)
-  runOptions          		run options for singularity
-  cacheDir              	full path to singularity image cache folder
+  genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna). note that  the reference genome needs an index (.fai) and a dictionary (.dict)
+  calling_target_bed    	full path to "position specific" GATK ploidy aware variant calling that will be used in phasing (.bed)
+  calling_target_region 	region of interest for GATK ploidy aware variant calling that will be used in phasing (chr:start-stop, i.e. chr5:71274893-71447410)
+  phaseset_region		region of interest to determine phaseset which will be used to make haplotag specific BAMs (chr:start-stop, i.e. chr5:71392465-71409463)
+  homopolymer_bed       	full path to homopolymer region of reference genome that will be used to annotate VCFs (.bed)
+
+  runOptions                    run options for singularity
+  cacheDir                      full path to singularity image cache folder
+
+  Only needed in case of the rebase(calling) method:
+  genome_mapping_index          full path to reference genome minimap2 index (.mmi).
+  guppy_basecaller_path 	full path to guppy_basecaller executable.
+  guppy_basecaller_config 	full path to basecalling model file to be used (.cfg).
+
 
   modify {profiles} according to local setttings
-  note that  the reference genome (genome_fasta) needs an indexing file (.fai) and a dictionary file (.dict)
 </pre>
 
 #### Running ONT workflow
