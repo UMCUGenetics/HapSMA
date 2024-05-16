@@ -21,7 +21,7 @@ process ReBasecallingGuppy{
     script:
         // adding --index will also give .bai in output. Not implemented yet.
         """
-        $params.guppy_basecaller_path -x "cuda:0" -c $params.guppy_path/data/$params.guppy_basecaller_config \
+        $params.guppy_basecaller_path -x "cuda:0" -c $params.guppy_basecaller_config \
         -i $input_path -s ./ $params.guppy_basecaller_params \
         --bam_out --fast5_out --align_ref $params.genome_mapping_index
         """
