@@ -9,7 +9,7 @@ sh install.sh
 ```
 
 #### Configure paths before use
-ONT_wgs_all.config:
+SMA.config:
 <pre>
   genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna). note that  the reference genome needs an index (.fai) and a dictionary (.dict)
   calling_target_bed    	full path to "position specific" GATK ploidy aware variant calling that will be used in phasing (.bed)
@@ -28,9 +28,9 @@ ONT_wgs_all.config:
   guppy_basecaller_config 	full path to basecalling model file to be used (.cfg)
 </pre>
 
-#### Running ONT workflow
+#### Running SMA workflow
 ```bash
-nextflow run ONT.nf -c ONT.config --input_path <input_path> --outdir <output_dir_path> --start <bam|rebase> --method <method> --email <email> [-profile slurm]
+nextflow run SMA.nf -c SMA.config --input_path <input_path> --outdir <output_dir_path> --start <bam|rebase> --method <method> --email <email> [-profile slurm]
 ```
 
 ##### --input_path
