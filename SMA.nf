@@ -360,7 +360,7 @@ workflow.onComplete {
 
     // Send email
     if (workflow.success) {
-        def subject = "ONT Workflow Successful: ${analysis_id}"
+        def subject = "SMA Workflow Successful: ${analysis_id}"
         sendMail(
             to: params.email.trim(),
             subject: subject,
@@ -369,7 +369,7 @@ workflow.onComplete {
         )
 
     } else {
-        def subject = "ONT Workflow Failed: ${analysis_id}"
+        def subject = "SMA Workflow Failed: ${analysis_id}"
         sendMail(to: params.email.trim(), subject: subject, body: email_html)
     }
 }

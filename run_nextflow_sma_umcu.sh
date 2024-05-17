@@ -37,7 +37,7 @@ sbatch <<EOT
 #SBATCH --nodes=1
 #SBATCH --mem 10G
 #SBATCH --gres=tmpspace:16G
-#SBATCH --job-name Nextflow_ONT
+#SBATCH --job-name Nextflow_SMA
 #SBATCH -o log/slurm_nextflow_ont.%j.out
 #SBATCH -e log/slurm_nextflow_ont.%j.err
 #SBATCH --mail-user $email
@@ -46,8 +46,8 @@ sbatch <<EOT
 
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow/nextflow run $workflow_path/ONT_wgs_all.nf \
--c $workflow_path/ONT_wgs_all.config \
+$workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
+-c $workflow_path/SMA.config \
 --input_path $input_path \
 --outdir $output \
 --email $email \
