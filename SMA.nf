@@ -49,8 +49,8 @@ include { VariantCaller as Clair3_VariantCaller_Region } from './Modules/Clair3/
     clair3model: "$params.clair3model",
     optional: " --haploid_sensitive --platform=ont --enable_long_indel"
 )
-include { VariantCaller as Sniffles2_VariantCaller_Bed } from './Modules/Sniffles2/2.2--pyhdfd78af_0/VariantCaller.nf' params(optional: "")
-include { VariantCaller as Sniffles2_VariantCaller_Region } from './Modules/Sniffles2/2.2--pyhdfd78af_0/VariantCaller.nf' params(optional: "")
+include { Sniffles2 as Sniffles2_VariantCaller_Bed } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
+include { Sniffles2 as Sniffles2_VariantCaller_Region } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
 include { VariantFiltrationSnpIndel as GATK_VariantFiltration_Clair3_Bed } from './Modules/GATK/4.2.1.0/VariantFiltration.nf' params(
     genome: "$params.genome_fasta", snp_filter: "$params.clair3_snp_filter",
     snp_cluster: "$params.clair3_snp_cluster", indel_filter: "$params.gatk_indel_filter", compress: true

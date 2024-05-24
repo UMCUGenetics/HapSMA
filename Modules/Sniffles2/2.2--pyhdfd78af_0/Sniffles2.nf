@@ -1,7 +1,6 @@
-process VariantCaller {
-    tag { "Sniffles2 VariantCaller ${bam_file.baseName}" }
+process Sniffles2 {
+    tag { "Sniffles2 ${bam_file.baseName}" }
     label 'Sniffles2_2_2'
-    label 'Sniffles2_2_2_VariantCaller'
     container = 'quay.io/biocontainers/sniffles:2.2--pyhdfd78af_0'
     shell = ['/bin/bash', '-euo', 'pipefail']
 
