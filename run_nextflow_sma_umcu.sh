@@ -74,7 +74,7 @@ if [ \$? -eq 0 ]; then
     #  echo "Creating md5sum"
     find -type f -not -iname 'md5sum.txt' -exec md5sum {} \; > md5sum.txt
 
-    echo "WES workflow completed successfully."
+    echo "SMA workflow completed successfully."
     rm workflow.running
     touch workflow.done
 
