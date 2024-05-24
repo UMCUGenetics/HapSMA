@@ -14,7 +14,7 @@ include { Fastq as Samtools_Fastq } from './Modules/Samtools/1.15/Fastq.nf' para
 include { FilterCondition as Sambamba_Filter_Condition } from './Modules/Sambamba/1.0.0/Filter.nf' params(conditions: params.conditions)
 include { FilterHaplotypePhaseset as Sambamba_Filter_Haplotype_Phaseset_Bed } from './Modules/Sambamba/1.0.0/Filter.nf'
 include { FilterHaplotypePhaseset as Sambamba_Filter_Haplotype_Phaseset_Region } from './Modules/Sambamba/1.0.0/Filter.nf'
-include { FilterPairs as Duplex_FilterPairs } from './Modules/duplex_tools/0.2.17/FilterPairs.nf'
+include { FilterPairs as Duplex_FilterPairs } from './Modules/DuplexTools/0.2.17/FilterPairs.nf'
 include { FilterSamReads as PICARD_FilterSamReads } from './Modules/Picard/2.26.4/FilterSamReads.nf' params(optional: " FILTER=excludeReadList")
 include { FilterVcfs as GATK_FilterSNV_Target_Bed } from './Modules/GATK/4.2.1.0/FilterVCFs.nf' params(genome: params.genome_fasta, filter: "SNP")
 include { FilterVcfs as GATK_FilterSNV_Target_Region } from './Modules/GATK/4.2.1.0/FilterVCFs.nf' params(genome: params.genome_fasta, filter: "SNP")
@@ -34,7 +34,7 @@ include { Longshot } from './Modules/Longshot/0.4.1/Phase.nf'
 include { Mapping as Minimap2_remap } from './Modules/Minimap2/2.26--he4a0461_1/Mapping.nf' params(optional: " -y -ax map-ont", genome_fasta: params.genome_fasta)
 include { Merge as Samtools_Merge } from './Modules/Samtools/1.15/Merge.nf'
 include { MultiQC } from './Modules/MultiQC/1.10/MultiQC.nf' params(optional: "--config $baseDir/assets/multiqc_config.yaml")
-include { PairsFromSummary as Duplex_PairsFromSummary } from './Modules/duplex_tools/0.2.17/PairsFromSummary.nf'
+include { PairsFromSummary as Duplex_PairsFromSummary } from './Modules/DuplexTools/0.2.17/PairsFromSummary.nf'
 include { Phase as Whatshap_Phase_Target_Bed } from './Modules/Whatshap/1.7/Phase.nf' params (genome: params.genome_fasta)
 include { Phase as Whatshap_Phase_Target_Region } from './Modules/Whatshap/1.7/Phase.nf' params (genome: params.genome_fasta)
 include { ReBasecallingGuppy } from './Modules/Utils/GuppyBasecalling.nf'
