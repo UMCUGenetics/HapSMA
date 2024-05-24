@@ -77,7 +77,6 @@ include { ZipIndex as Tabix_Zip_Index_Bcftools_Region } from './Modules/Tabix/1.
 
 
 def analysis_id = params.outdir.split('/')[-1]
-sample_id = params.sample_id
 
 
 if (params.method == "SMA_adaptive"){
@@ -87,7 +86,7 @@ if (params.method == "SMA_adaptive"){
 
 workflow {
     if( params.start == 'bam' ){
-        // Get fast5 and mapped bams from input folder
+       / Get fast5 and mapped bams from input folder
         bam_files = Channel.fromPath(params.input_path +  "/pass/*.bam").toList()
         summary_file = Channel.fromPath(params.input_path +  "/sequencing_summary.txt").toList()
     }
@@ -98,7 +97,7 @@ workflow {
     else if( params.start == 'rebase' ){
         //Re-basecalling
         fast5 = Channel.fromPath(params.input_path +  "/fast5_*/*.fast5").toList()
-        ReBasecallingGuppy(params.input_path, sample_id, fast5.sum{it.size()})
+        ReBasecallingGuppy(params.input_path, params.sample_id, fast5.sum{it.size()})
         fast5_files = ReBasecallingGuppy.out.map{fastq_files, fast5_files, all_files, bam_files, summary_file -> fast5_files}
         bam_files = ReBasecallingGuppy.out.map{fastq_files, fast5_files, all_files, bam_files, summary_file -> bam_files}
         summary_file = ReBasecallingGuppy.out.map{fastq_files, fast5_files, all_files, bam_files, summary_file -> summary_file}
@@ -110,19 +109,19 @@ workflow {
     }
     else{
         error  """
-            Invalid alignment mode: ${params.start}.
-            This should be bam (start from basecalled data),
+            Invalid start mode: ${params.start}. This should be 
+            bam (start from basecalled data),
             bam_remap (start from bam, but perform remapping with minimap2),
             bam_single (start from single bam without sequencing information),
             bam_single_remap (start from single bam without sequencing information and perform remapping),
-            or rebase (full re-basecalling)
+            rebase (full re-basecalling)
         """
     }
 
 
     if( params.start == 'bam_single' ||  params.start == 'bam_single_remap' ){
         // Index MergeSort BAM
-        Sambamba_Index_Merge(bam_file.map{bam_file -> [sample_id, bam_file]})
+        Sambamba_Index_Merge(bam_file.map{bam_file -> [params.sample_id, bam_file]})
 
         // Filter for minimum readlength
         Sambamba_Filter_Condition(bam_file.combine(Sambamba_Index_Merge.out.map{sample_id, bai_file -> bai_file}))
@@ -131,7 +130,7 @@ workflow {
     }
     else{
         // MergeSort BAMs
-        Samtools_Merge(bam_files.map{bam_files -> [sample_id, bam_files]})
+        Samtools_Merge(bam_files.map{bam_files -> [params.sample_id, bam_files]})
 
         // Index MergeSort BAM
         Sambamba_Index_Merge(Samtools_Merge.out)
@@ -145,7 +144,7 @@ workflow {
         )
 
         // Identify readpairs
-        Duplex_PairsFromSummary(sample_id, summary_file)
+        Duplex_PairsFromSummary(params.sample_id, summary_file)
 
         // Identify possible duplex reads from read pairs
         Duplex_FilterPairs(Duplex_PairsFromSummary.out, Sambamba_Filter_Condition.out)
@@ -154,7 +153,7 @@ workflow {
         PICARD_FilterSamReads(Sambamba_Filter_Condition.out, Duplex_FilterPairs.out)
 
         //Index BAM file
-        Sambamba_Index_Deduplex(PICARD_FilterSamReads.out.map{bam_file ->[sample_id, bam_file]})
+        Sambamba_Index_Deduplex(PICARD_FilterSamReads.out.map{bam_file ->[params.sample_id, bam_file]})
 
         bam_file = PICARD_FilterSamReads.out.combine(
             Sambamba_Index_Deduplex.out.map{sample_id, bai_file -> bai_file}
@@ -171,7 +170,7 @@ workflow {
         Minimap2_remap(Samtools_Fastq.out)
 
         // Sort SAM to BAM
-        Sambamba_ViewSort_remap(Minimap2_remap.out.map{fastq, sam_file -> [sample_id, fastq , sam_file]})
+        Sambamba_ViewSort_remap(Minimap2_remap.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
 
         bam_file = Sambamba_ViewSort_remap.out.map{sample_id, rg_id, bam_file, bai_file -> [bam_file, bai_file]}
 
@@ -179,14 +178,14 @@ workflow {
 
 
     // Add readgroup to BAM
-    Samtools_AddReplaceReadgroup(sample_id, bam_file)
+    Samtools_AddReplaceReadgroup(params.sample_id, bam_file)
 
     // Index readgroup BAM
-    Sambamba_Index_ReadGroup(Samtools_AddReplaceReadgroup.out.map{bam_file -> [sample_id, bam_file]})
+    Sambamba_Index_ReadGroup(Samtools_AddReplaceReadgroup.out.map{bam_file -> [params.sample_id, bam_file]})
 
     bam_file = Samtools_AddReplaceReadgroup.out.combine(
         Sambamba_Index_ReadGroup.out.map{sample_id, bai_file -> bai_file})
-        .map{bam_file, bai_file -> [sample_id, bam_file, bai_file]}
+        .map{bam_file, bai_file -> [params.sample_id, bam_file, bai_file]}
 
 
     if (params.method == "wgs"){
@@ -194,7 +193,7 @@ workflow {
         Longshot(bam_file.map{sample_id, bam_file, bai_file -> [bam_file, bai_file]})
 
         // BAMIndex
-        Sambamba_Index_Longshot(Longshot.out.map{bam_file, vcf_file -> [sample_id, bam_file]})
+        Sambamba_Index_Longshot(Longshot.out.map{bam_file, vcf_file -> [params.sample_id, bam_file]})
 
     }
 
@@ -224,7 +223,7 @@ workflow {
         )
 
         //Index Homopolymer annotated VCF file (BED approach)
-        Tabix_Zip_Index_Bcftools_Bed(Bcftools_Annotate_Bed.out.map{vcf_file -> [sample_id, vcf_file]})
+        Tabix_Zip_Index_Bcftools_Bed(Bcftools_Annotate_Bed.out.map{vcf_file -> [params.sample_id, vcf_file]})
 
         //Filter VCF (BED approach)
         GATK_VariantFiltration_Bed(Tabix_Zip_Index_Bcftools_Bed.out)
@@ -237,7 +236,7 @@ workflow {
         )
 
         // Index BAM file and publish (BED approach)
-        Sambamba_Index_Target_Bed(Whatshap_Haplotag_Target_Bed.out.map{bam_file -> [sample_id, bam_file]})
+        Sambamba_Index_Target_Bed(Whatshap_Haplotag_Target_Bed.out.map{bam_file -> [params.sample_id, bam_file]})
 
         // Get correct phasegroup (BED approach)
         GetPhaseSet_Bed(GATK_VariantFiltration_Bed.out)
@@ -258,7 +257,7 @@ workflow {
         Bcftools_Annotate_Clair3_Bed(Clair3_VariantCaller_Bed.out)
 
         //Index Homopolymer annotated VCF file (BED approach)
-        Tabix_Zip_Index_Bcftools_Clair3_Bed(Bcftools_Annotate_Clair3_Bed.out.map{vcf_file -> [sample_id, vcf_file]})
+        Tabix_Zip_Index_Bcftools_Clair3_Bed(Bcftools_Annotate_Clair3_Bed.out.map{vcf_file -> [params.sample_id, vcf_file]})
 
         //Filter VCF (BED approach)
         GATK_VariantFiltration_Clair3_Bed(Tabix_Zip_Index_Bcftools_Clair3_Bed.out)
@@ -291,7 +290,7 @@ workflow {
         )
 
         //Index Homopolymer annotated VCF file (REGION approach)
-        Tabix_Zip_Index_Bcftools_Region(Bcftools_Annotate_Region.out.map{vcf_file -> [sample_id, vcf_file]})
+        Tabix_Zip_Index_Bcftools_Region(Bcftools_Annotate_Region.out.map{vcf_file -> [params.sample_id, vcf_file]})
 
         //Filter VCF (REGION approach)
         GATK_VariantFiltration_Region(Tabix_Zip_Index_Bcftools_Region.out)
@@ -325,7 +324,7 @@ workflow {
         Bcftools_Annotate_Clair3_Region(Clair3_VariantCaller_Region.out)
 
         //Index Homopolymer annotated VCF file (REGION approach)
-        Tabix_Zip_Index_Bcftools_Clair3_Region(Bcftools_Annotate_Clair3_Region.out.map{vcf_file -> [sample_id, vcf_file]})
+        Tabix_Zip_Index_Bcftools_Clair3_Region(Bcftools_Annotate_Clair3_Region.out.map{vcf_file -> [params.sample_id, vcf_file]})
 
         //Filter VCF (REGION approach)
         GATK_VariantFiltration_Clair3_Region(Tabix_Zip_Index_Bcftools_Clair3_Region.out)
