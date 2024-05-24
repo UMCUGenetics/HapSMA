@@ -1,7 +1,7 @@
 process FilterVcfs {
     tag {"GATK FilterVCFs ${sample_id}"}
     label 'GATK_4_2_1_0'
-    label 'GATK_4_2_1_0_MergeVcfs'
+    label 'GATK_4_2_1_0_FilterVcfs'
     container = 'broadinstitute/gatk:4.2.1.0'
     shell = ['/bin/bash', '-euo', 'pipefail']
 
