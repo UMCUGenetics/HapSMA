@@ -1,5 +1,5 @@
 process Haplotag {
-    tag {"Whatshap_Phase Minimap2 ${bam_file}"}
+    tag {"Whatshap_Haplotag ${bam_file}"}
     label 'Whatshap_1_7'
     label 'Whatshap_1_7_Haplotag'
     container = 'quay.io/biocontainers/whatshap:1.7--py310h30d9df9_0'

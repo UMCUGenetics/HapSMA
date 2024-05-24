@@ -1,5 +1,5 @@
 process Phase {
-    tag {"Whatshap_Phase Minimap2 ${sample_id}"}
+    tag {"Whatshap_Phase ${sample_id}"}
     label 'Whatshap_1_7'
     label 'Whatshap_1_7_Phase'
     container = 'quay.io/biocontainers/whatshap:1.7--py310h30d9df9_0'
