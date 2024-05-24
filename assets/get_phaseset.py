@@ -1,17 +1,16 @@
 #! /usr/bin/env python3
 
 import argparse
+import re
 import vcfpy
 
 
 def ParseVCF(input_vcf, region):
-    chrom = region.split(":")[0]
-    start = int(region.split(":")[1].split("-")[0])
-    stop = int(region.split(":")[1].split("-")[1])
+    chrom, start, stop = re.split(':|-', region)
 
     ps = []
     reader = vcfpy.Reader.from_path(input_vcf)
-    for record in reader.fetch(chrom, begin=start, end=stop):
+    for record in reader.fetch(chrom, begin=int(start), end=int(stop)):
         phaseset = record.calls[0].data.get('PS')  # Assuming single sample VCF
         if phaseset:
             ps.append(phaseset)
