@@ -14,6 +14,7 @@ def ParseVCF(input_vcf, region):
         phaseset = record.calls[0].data.get('PS')  # Assuming single sample VCF
         if phaseset:
             phasesets.append(phaseset)
+
     if len(set(phasesets)) == 1:
         return list(set(phasesets))[0]
     else:  # if not unique phaseset is detected in roi, pick most prevelant
@@ -21,9 +22,8 @@ def ParseVCF(input_vcf, region):
         total_count = 0
         for ps_group in phasesets:
             if ps_group not in count_dic:
-                count_dic[ps_group] = 1
-            else:
-                count_dic[ps_group] += 1
+                count_dic[ps_group] = 0
+            count_dic[ps_group] += 1
             total_count += 1
         for ps_group in count_dic:
             if count_dic[ps_group]/total_count > args.freq:
