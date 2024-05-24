@@ -8,18 +8,18 @@ import vcfpy
 def ParseVCF(input_vcf, region):
     chrom, start, stop = re.split(':|-', region)
 
-    ps = []
+    phasesets = []
     reader = vcfpy.Reader.from_path(input_vcf)
     for record in reader.fetch(chrom, begin=int(start), end=int(stop)):
         phaseset = record.calls[0].data.get('PS')  # Assuming single sample VCF
         if phaseset:
-            ps.append(phaseset)
-    if len(set(ps)) == 1:
-        return list(set(ps))[0]
-    else:  # if not unique ps is detected in roi, pick most prevelant
+            phasesets.append(phaseset)
+    if len(set(phasesets)) == 1:
+        return list(set(phasesets))[0]
+    else:  # if not unique phaseset is detected in roi, pick most prevelant
         count_dic = {}
         total_count = 0
-        for ps_group in ps:
+        for ps_group in phasesets:
             if ps_group not in count_dic:
                 count_dic[ps_group] = 1
             else:
