@@ -30,7 +30,7 @@ include { Index as Sambamba_Index_ReadGroup } from './Modules/Sambamba/1.0.0/Ind
 include { Index as Sambamba_Index_Target_Bed } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Target_Region } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Merge } from './Modules/Sambamba/1.0.0/Index.nf'
-include { LongshotPhase } from './Modules/Longshot/0.4.1/Phase.nf'
+include { Longshot } from './Modules/Longshot/0.4.1/Phase.nf'
 include { Mapping as Minimap2_remap } from './Modules/Minimap2/2.26--he4a0461_1/Mapping.nf' params(optional: " -y -ax map-ont", genome_fasta: params.genome_fasta)
 include { Merge as Samtools_Merge } from './Modules/Samtools/1.15/Merge.nf'
 include { MultiQC } from './Modules/MultiQC/1.10/MultiQC.nf' params(optional: "--config $baseDir/assets/multiqc_config.yaml")
@@ -191,10 +191,10 @@ workflow {
 
     if (params.method == "wgs"){
         //Phasing BAM
-        LongshotPhase(bam_file.map{sample_id, bam_file, bai_file -> [bam_file, bai_file]})
+        Longshot(bam_file.map{sample_id, bam_file, bai_file -> [bam_file, bai_file]})
 
         // BAMIndex
-        Sambamba_Index_Longshot(LongshotPhase.out.map{bam_file, vcf_file -> [sample_id, bam_file]})
+        Sambamba_Index_Longshot(Longshot.out.map{bam_file, vcf_file -> [sample_id, bam_file]})
 
     }
 

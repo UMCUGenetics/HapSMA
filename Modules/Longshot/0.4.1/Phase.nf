@@ -1,6 +1,6 @@
-process LongshotPhase {
-    tag {"LongshotPhase ${bam_file}"}
-    label 'LongshotPhase_0_4_1'
+process Longshot {
+    tag {"Longshot ${bam_file}"}
+    label 'Longshot_0_4_1'
     container = 'quay.io/biocontainers/longshot:0.4.1--hc4ca7c3_2'
     shell = ['/bin/bash', '-euo', 'pipefail']
     
