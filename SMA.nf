@@ -136,11 +136,10 @@ workflow {
         Sambamba_Index_Merge(Samtools_Merge.out)
 
         // Filter for minimum readlength
-        Sambamba_Filter_Condition(Samtools_Merge.out
+        Sambamba_Filter_Condition(
+            Samtools_Merge.out
             .map{ sample_id, bam_file -> bam_file }
-            .combine(Sambamba_Index_Merge.out
-                .map{ sample_id, bai_file -> bai_file }
-            )
+            .combine(Sambamba_Index_Merge.out.map{ sample_id, bai_file -> bai_file })
         )
 
         // Identify readpairs
@@ -242,13 +241,14 @@ workflow {
         GetPhaseSet_Bed(GATK_VariantFiltration_Bed.out)
 
         // Split BAM into single haplotypes (BED approach)
-        Sambamba_Filter_Haplotype_Phaseset_Bed(Whatshap_Haplotag_Target_Bed.out.combine(
-            Sambamba_Index_Target_Bed.out.map{sample_id, bai_file -> bai_file}
-        ).combine(
-            ploidy_list
-        ).combine(
-           GetPhaseSet_Bed.out
-        ))
+        Sambamba_Filter_Haplotype_Phaseset_Bed(
+            Whatshap_Haplotag_Target_Bed.out
+            .combine(
+                Sambamba_Index_Target_Bed.out.map{sample_id, bai_file -> bai_file}
+            )
+            .combine(ploidy_list)
+            .combine(GetPhaseSet_Bed.out)
+        )
 
         //Clair3 calling on haplotype BAMs (BED approach)
         Clair3_VariantCaller_Bed(Sambamba_Filter_Haplotype_Phaseset_Bed.out)
@@ -309,13 +309,14 @@ workflow {
         GetPhaseSet_Region(GATK_VariantFiltration_Region.out)
 
         // Split BAM into single haplotypes (REGION approach)
-        Sambamba_Filter_Haplotype_Phaseset_Region(Whatshap_Haplotag_Target_Region.out.combine(
-            Sambamba_Index_Target_Region.out.map{sample_id, bai_file -> bai_file}
-        ).combine(
-            ploidy_list
-        ).combine(
-           GetPhaseSet_Region.out
-        ))
+        Sambamba_Filter_Haplotype_Phaseset_Region(
+            Whatshap_Haplotag_Target_Region.out
+            .combine(
+                Sambamba_Index_Target_Region.out.map{sample_id, bai_file -> bai_file}
+                )
+           .combine(ploidy_list)
+           .combine(GetPhaseSet_Region.out)
+        )
 
         //Clair3 calling on haplotype BAMs (REGION approach)
         Clair3_VariantCaller_Region(Sambamba_Filter_Haplotype_Phaseset_Region.out)
