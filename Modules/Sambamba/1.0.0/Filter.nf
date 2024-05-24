@@ -14,8 +14,8 @@ process FilterCondition {
         """
         sambamba view -t ${task.cpus} -f bam \
         -F "${params.conditions}" \
-        ${bam_file} \
-        -o  ${bam_file.simpleName}_condition.bam
+        -o  ${bam_file.simpleName}_condition.bam \
+        ${bam_file} 
         """
 }
 
@@ -35,7 +35,7 @@ process FilterHaplotypePhaseset {
         """
         sambamba view -t ${task.cpus} -f bam \
         -F "[HP] == ${hp} and [PS] == ${ps}" \
+        -o  ${bam_file.simpleName}_hap${hp}_ps${ps}.bam \
         ${bam_file} \
-        -o  ${bam_file.simpleName}_hap${hp}_ps${ps}.bam
         """
 }
