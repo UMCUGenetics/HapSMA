@@ -3,12 +3,12 @@ Workflow SMA for Oxford Nanopore Technologies sequencing data\
 Note: this workflow hase been tested on R9.4.1 sequencing data with guppy_6.1.2 basecalling only.\
 Note: current workflow setup has been tested on Rocky Linux 8 combined with Slurm Workload Manager.
 
-#### Install OpenJDK and Nextflow
+## Install OpenJDK and Nextflow
 ```bash
 sh install.sh
 ```
 
-#### Configure paths before use
+## Configure paths before use
 SMA.config:
 <pre>
   genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna). note that  the reference genome needs an index (.fai) and a dictionary (.dict)
@@ -28,19 +28,19 @@ SMA.config:
   guppy_basecaller_config 	full path to basecalling model file to be used (.cfg)
 </pre>
 
-#### Running SMA workflow
+## Running SMA workflow
 ```bash
 nextflow run SMA.nf -c SMA.config --input_path <input_path> --outdir <output_dir_path> --start <bam|rebase> --method <method> --email <email> [-profile slurm]
 ```
 
-##### --input_path
+## --input_path
 <pre>
 Input path is full path to either FAST5 or BAM file, depending on method (see below).
   * rebase              assumes raw data folder with fast5_pass/ and fast5_fail/ subfolders.
   * bam(_remap)         assumes Guppy output folder with subfolder pass/ in which BAM files are located.
   * bam_single(_remap)  assumes a single BAM file per input folder.
 </pre>
-##### --method
+## --method
 <pre>
   * rebase              start from FAST5 raw data ouput folder and include re-basecalling.
   * bam                 start from Guppy folder including bam files.
