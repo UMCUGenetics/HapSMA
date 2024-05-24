@@ -68,12 +68,12 @@ include { VariantFiltrationSnpIndel as GATK_VariantFiltration_Region } from './M
     snp_cluster: "$params.gatk_snp_cluster", indel_filter: "$params.gatk_indel_filter", compress: true
 )
 include { VersionLog } from './Modules/Utils/VersionLog.nf'
-include { ZipIndex as Tabix_Zip_Index_Bed } from './Modules/Tabix/1.11/Index.nf'
-include { ZipIndex as Tabix_Zip_Index_Region } from './Modules/Tabix/1.11/Index.nf'
-include { ZipIndex as Tabix_Zip_Index_Bcftools_Clair3_Bed } from './Modules/Tabix/1.11/Index.nf'
-include { ZipIndex as Tabix_Zip_Index_Bcftools_Clair3_Region } from './Modules/Tabix/1.11/Index.nf'
-include { ZipIndex as Tabix_Zip_Index_Bcftools_Bed } from './Modules/Tabix/1.11/Index.nf'
-include { ZipIndex as Tabix_Zip_Index_Bcftools_Region } from './Modules/Tabix/1.11/Index.nf'
+include { ZipIndex as Tabix_Zip_Index_Bed } from './Modules/Tabix/1.11/ZipIndex.nf'
+include { ZipIndex as Tabix_Zip_Index_Region } from './Modules/Tabix/1.11/ZipIndex.nf'
+include { ZipIndex as Tabix_Zip_Index_Bcftools_Clair3_Bed } from './Modules/Tabix/1.11/ZipIndex.nf'
+include { ZipIndex as Tabix_Zip_Index_Bcftools_Clair3_Region } from './Modules/Tabix/1.11/ZipIndex.nf'
+include { ZipIndex as Tabix_Zip_Index_Bcftools_Bed } from './Modules/Tabix/1.11/ZipIndex.nf'
+include { ZipIndex as Tabix_Zip_Index_Bcftools_Region } from './Modules/Tabix/1.11/ZipIndex.nf'
 
 
 def analysis_id = params.outdir.split('/')[-1]
