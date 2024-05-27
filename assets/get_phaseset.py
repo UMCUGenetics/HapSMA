@@ -25,9 +25,12 @@ def ParseVCF(input_vcf, region):
                 count_dic[ps_group] = 0
             count_dic[ps_group] += 1
             total_count += 1
-        for ps_group in count_dic:
-            if count_dic[ps_group]/total_count > args.freq:
-                return ps_group
+
+        max_count = max(count_dic.values())
+        if max_count/total_count > args.freq:
+            max_keys = [key for key in count_dic if count_dic[key] == max_count]
+            if len(max_keys) == 1:  # return only if a single unique phaseset is detected
+                return max_keys[0]
     return 0
 
 
