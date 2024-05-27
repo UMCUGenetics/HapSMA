@@ -5,7 +5,7 @@ import re
 import vcfpy
 
 
-def ParseVCF(input_vcf, region):
+def get_phaseset_from_vcf(input_vcf, region):
     chrom, start, stop = re.split(':|-', region)
 
     phasesets = []
@@ -45,5 +45,5 @@ if __name__ == "__main__":
         help='threshold to determine most likely PS if multiple are detected in roi [default = 0.65]'
     )
     args = parser.parse_args()
-    phaseset = ParseVCF(args.input_vcf, args.roi)
+    phaseset = get_phaseset_from_vcf(args.input_vcf, args.roi)
     print(phaseset)
