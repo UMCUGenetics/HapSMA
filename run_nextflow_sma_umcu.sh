@@ -4,26 +4,14 @@ set -euo pipefail
 workflow_path='{full path to checkout of repository}'
 
 # Set input and output dirs
+echo " #### Running method targeted SMA specific + adaptive sequencing ####"
 input_path=`realpath -e $1`
 output=$2
 email=$3
 sample_id=$4
 start_run=$5
-method=${6-default}
-
-
-if [ $method == "wgs" ]; then
-    echo " #### Running method wgs  ####"
-    optional_params=( "${@:7}" )
-fi
-
-
-if [ $method == "SMA_adaptive" ]; then
-    echo " #### Running method targeted SMA specific + adaptive sequencing ####"
-    ploidy='--ploidy '$7
-    optional_params=( "${@:8}" )
-fi
-
+ploidy=$6
+optional_params=( "${@:7}" )
 
 mkdir -p $output && cd $output
 mkdir -p log
@@ -47,17 +35,13 @@ sbatch <<EOT
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
 $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
--c $workflow_path/SMA.config \
+-c $workflow_path/SMA_umcu.config \
 --input_path $input_path \
 --outdir $output \
 --email $email \
 --sample_id $sample_id \
 --start $start_run \
---method $method \
-${roi:-""} \
-${strique_config:-""} \
-${splitfile:-""} \
-${ploidy:-""} \
+--ploidy $ploidy \
 ${optional_params[@]:-""} \
 -profile slurm \
 -resume -ansi-log false
