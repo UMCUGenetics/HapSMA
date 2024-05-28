@@ -1,4 +1,7 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process HaplotypeCaller_SMN {
+
     tag {"GATK HaplotypeCaller ${bam_file.simpleName}"}
     label 'GATK_4_2_1_0'
     label 'GATK_4_2_1_0_HaplotypeCaller_SMN'

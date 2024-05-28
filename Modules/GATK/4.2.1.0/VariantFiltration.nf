@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process VariantFiltrationSnpIndel {
     tag {"GATK VariantFiltrationSnpIndel ${analysis_id}"}
     label 'GATK_4_2_1_0'

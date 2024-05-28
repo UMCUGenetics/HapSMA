@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process CollectWgsMetrics {
     tag {"PICARD CollectWgsMetrics ${sample_id}"}
     label 'PICARD_2_26_4'

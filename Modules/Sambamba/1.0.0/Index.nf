@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process Index {
   tag {"Sambamba Index ${sample_id}"}
   label 'Sambamba_1_0_0'

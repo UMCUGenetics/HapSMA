@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process ExportParams {
     tag {"Workflow Export Params"}
     label 'Workflow_Export_Params'

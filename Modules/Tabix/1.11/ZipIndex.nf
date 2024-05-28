@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process ZipIndex {
     tag {"Tabix_Zip_Index ${sample_id}"}
     label 'Tabix_Zip_Index'

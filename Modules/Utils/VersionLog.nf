@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/CustomModules - MIT License - Copyright (c) 2023 UMCU Genetics
+
 process VersionLog {
     // Custom process to log repository versions
     tag {"VersionLog ${analysis_id}"}

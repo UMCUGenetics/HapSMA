@@ -1,3 +1,5 @@
+// Original code from: https://github.com/UMCUGenetics/NextflowModules - MIT License - Copyright (c) 2019 UMCU Genetics
+
 process MultiQC {
     tag {"MultiQC"}
     label 'MultiQC_1_10'
