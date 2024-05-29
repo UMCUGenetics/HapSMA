@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-workflow_path='{full path to checkout of repository}'
+workflow_path='/hpc/diaggen/projects/ONT_SMA_project/software/NextflowSMA'
 
 # Set input and output dirs
 echo " #### Running method targeted SMA specific + adaptive sequencing ####"
