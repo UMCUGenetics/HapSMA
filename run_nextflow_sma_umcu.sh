@@ -35,7 +35,7 @@ sbatch <<EOT
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
 $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
--c $workflow_path/SMA_umcu.config \
+-c $workflow_path/SMA.config -c $workflow_path/SMA_umcu.config \
 --input_path $input_path \
 --outdir $output \
 --email $email \
