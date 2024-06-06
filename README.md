@@ -47,9 +47,8 @@ nextflow run SMA.nf -c SMA.config --input_path <input_path> --outdir <output_dir
 
 NextflowSMA can be started using different options (__rebase__, __bam__, __bam_single__) which require different input paths and assumes different files within this folder.
 
-Optional for start __bam__ and __bam_single__ is the addition of ___remap__, in which reads will be remapped the the reference genome provided in SMA.config.\
-___remap__ is advised when reference genome used for mapping the BAM is different from the reference genome in SMA.config.
-
+Optional for start __bam__ and __bam_single__ is the addition of ___remap__, in which reads will be remapped to the reference genome provided in SMA.config.\
+To prevent downstream issues in variantcalling we would advise to always include ___remap__ unless it is certain that the reference genome in SMA.config has also been used for mappping reads in the input BAM.
 
 
   * __rebase__
@@ -65,7 +64,7 @@ ___remap__ is advised when reference genome used for mapping the BAM is differen
     * input_path = full path to Guppy output folder containing BAM files in the pass/ folder and sequencing_summary.txt in the root folder
      
   * __bam_single__
-    * start from single bam file. 
+    * start from single bam file 
     * input_path = full path to folder containing (only) one BAM file and corresponding BAI index file
     
   * __bam_single_remap__
@@ -74,9 +73,7 @@ ___remap__ is advised when reference genome used for mapping the BAM is differen
      
     
 ### --ploidy
-<pre>
-Estimated copy number of SMN1 + SMN2 (integer)
-</pre>
+* Estimated copy number of SMN1 + SMN2 (integer)
 
 # UMC Utrecht specific files
 SMA_umcu.config and run_nextflow_sma_umcu.sh are custom scripts to run the workflow on the UMC Utrecht HPC infrastructure.
