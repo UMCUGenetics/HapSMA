@@ -13,7 +13,7 @@ Note:
 * Worfklow testing has only been perfromed using R9.4.1 sequencing data with guppy_6.1.2 basecalling.
 * General use of the workflow is described below using SMA.config, although some configuration might be needed dependent on your local infrastructure.
 * Reference genome need to be indexed:
-  * .fai using samtools index (tested version 1.15)
+  * .fai using samtools faidx (tested version 1.15)
   * .dict using picard CreateSequenceDictionary (tested version 3.0.0)
   * (for rebasecalling only) .mmi using minimap2 -d (tested version 2.26)
 
