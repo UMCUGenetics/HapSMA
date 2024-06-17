@@ -1,4 +1,4 @@
-process Minimap {
+process Minimap2 {
     tag {"Minimap2 ${fastq.simpleName}"}
     label 'Minimap_2_26'
     container = 'quay.io/biocontainers/minimap2:2.26--he4a0461_1'
