@@ -28,7 +28,7 @@ include { Index as Sambamba_Index_ReadGroup } from './Modules/Sambamba/1.0.0/Ind
 include { Index as Sambamba_Index_Target_Bed } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Target_Region } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Merge } from './Modules/Sambamba/1.0.0/Index.nf'
-include { Mapping as Minimap2_remap } from './Modules/Minimap2/2.26--he4a0461_1/Mapping.nf' params(optional: " -y -ax map-ont", genome_fasta: params.genome_fasta)
+include { Minimap2 } from './Modules/Minimap2/2.26--he4a0461_1/Minimap2.nf' params(optional: " -y -ax map-ont", genome_fasta: params.genome_fasta)
 include { Merge as Samtools_Merge } from './Modules/Samtools/1.15/Merge.nf'
 include { MultiQC } from './Modules/MultiQC/1.10/MultiQC.nf' params(optional: "--config $baseDir/assets/multiqc_config.yaml")
 include { PairsFromSummary as Duplex_PairsFromSummary } from './Modules/DuplexTools/0.2.17/PairsFromSummary.nf'
@@ -159,10 +159,10 @@ workflow {
         Samtools_Fastq(bam_file)
 
          // Re-map ROI fastq
-        Minimap2_remap(Samtools_Fastq.out)
+        Minimap2(Samtools_Fastq.out)
 
         // Sort SAM to BAM
-        Sambamba_ViewSort_remap(Minimap2_remap.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
+        Sambamba_ViewSort_remap(Minimap2.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
 
         bam_file = Sambamba_ViewSort_remap.out.map{sample_id, rg_id, bam_file, bai_file -> [bam_file, bai_file]}
 
