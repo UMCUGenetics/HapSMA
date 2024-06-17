@@ -1,7 +1,6 @@
-process Phase {
+process Polyphase {
     tag {"Whatshap_Phase ${sample_id}"}
     label 'Whatshap_1_7'
-    label 'Whatshap_1_7_Phase'
     container = 'quay.io/biocontainers/whatshap:1.7--py310h30d9df9_0'
     shell = ['/bin/bash', '-euo', 'pipefail']
 
