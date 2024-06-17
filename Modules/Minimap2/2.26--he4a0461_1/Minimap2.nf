@@ -1,7 +1,6 @@
-process Mapping {
+process Minimap {
     tag {"Minimap2 ${fastq.simpleName}"}
     label 'Minimap_2_26'
-    label 'Minimap_2_26_Mapping'
     container = 'quay.io/biocontainers/minimap2:2.26--he4a0461_1'
     shell = ['/bin/bash', '-euo', 'pipefail']
 
