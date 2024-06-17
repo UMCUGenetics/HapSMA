@@ -1,4 +1,4 @@
-process VariantCaller {
+process Clair3 {
     tag { "Clair3 VariantCaller ${bam_file.baseName}" }
     label 'Clair3_1_0_4'
     label 'Clair3_1_0_4_VariantCaller'
