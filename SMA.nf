@@ -36,18 +36,18 @@ include { Phase as Whatshap_Phase_Target_Bed } from './Modules/Whatshap/1.7/Phas
 include { Phase as Whatshap_Phase_Target_Region } from './Modules/Whatshap/1.7/Phase.nf' params (genome: params.genome_fasta)
 include { ReBasecallingGuppy } from './Modules/Utils/GuppyBasecalling.nf'
 include { ViewSort as Sambamba_ViewSort_remap } from './Modules/Sambamba/1.0.0/ViewSort.nf'
-include { VariantCaller as Clair3_VariantCaller_Bed } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/VariantCaller.nf' params(
+include { Clair3 as Clair3_Bed } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/Clair3.nf' params(
     genome: "$params.genome_fasta",
     clair3model: "$params.clair3model",
     optional: " --haploid_sensitive --platform=ont --enable_long_indel"
 )
-include { VariantCaller as Clair3_VariantCaller_Region } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/VariantCaller.nf' params(
+include { Clair3 as Clair3_Region } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/Clair3.nf' params(
     genome: "$params.genome_fasta",
     clair3model: "$params.clair3model",
     optional: " --haploid_sensitive --platform=ont --enable_long_indel"
 )
-include { Sniffles2 as Sniffles2_VariantCaller_Bed } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
-include { Sniffles2 as Sniffles2_VariantCaller_Region } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
+include { Sniffles2 as Sniffles2_Bed } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
+include { Sniffles2 as Sniffles2_Region } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
 include { VariantFiltrationSnpIndel as GATK_VariantFiltration_Clair3_Bed } from './Modules/GATK/4.2.1.0/VariantFiltration.nf' params(
     genome: "$params.genome_fasta", snp_filter: "$params.clair3_snp_filter",
     snp_cluster: "$params.clair3_snp_cluster", indel_filter: "$params.gatk_indel_filter", compress: true
@@ -231,10 +231,10 @@ workflow {
     )
 
     //Clair3 calling on haplotype BAMs (BED approach)
-    Clair3_VariantCaller_Bed(Sambamba_Filter_Haplotype_Phaseset_Bed.out)
+    Clair3_Bed(Sambamba_Filter_Haplotype_Phaseset_Bed.out)
 
     // Annotate Clair3 VCF (BED approach)
-    Bcftools_Annotate_Clair3_Bed(Clair3_VariantCaller_Bed.out)
+    Bcftools_Annotate_Clair3_Bed(Clair3_Bed.out)
 
     //Index Homopolymer annotated VCF file (BED approach)
     Tabix_Zip_Index_Bcftools_Clair3_Bed(Bcftools_Annotate_Clair3_Bed.out.map{vcf_file -> [params.sample_id, vcf_file]})
@@ -243,7 +243,7 @@ workflow {
     GATK_VariantFiltration_Clair3_Bed(Tabix_Zip_Index_Bcftools_Clair3_Bed.out)
 
     //Sniffles SV variant calling on haplotype BAMs (BED approach)
-    Sniffles2_VariantCaller_Bed(Sambamba_Filter_Haplotype_Phaseset_Bed.out)
+    Sniffles2_Bed(Sambamba_Filter_Haplotype_Phaseset_Bed.out)
 
     // REGION approach: variant calling and phasing on a specific region of interest
     // Variant calling (REGION approach)
@@ -297,10 +297,10 @@ workflow {
     )
 
     //Clair3 calling on haplotype BAMs (REGION approach)
-    Clair3_VariantCaller_Region(Sambamba_Filter_Haplotype_Phaseset_Region.out)
+    Clair3_Region(Sambamba_Filter_Haplotype_Phaseset_Region.out)
 
     // Annotate Clair3 VCF (REGION approach)
-    Bcftools_Annotate_Clair3_Region(Clair3_VariantCaller_Region.out)
+    Bcftools_Annotate_Clair3_Region(Clair3_Region.out)
 
     //Index Homopolymer annotated VCF file (REGION approach)
     Tabix_Zip_Index_Bcftools_Clair3_Region(Bcftools_Annotate_Clair3_Region.out.map{vcf_file -> [params.sample_id, vcf_file]})
@@ -309,7 +309,7 @@ workflow {
     GATK_VariantFiltration_Clair3_Region(Tabix_Zip_Index_Bcftools_Clair3_Region.out)
 
     //Sniffles SV variant calling on haplotype BAMs (REGION approach)
-    Sniffles2_VariantCaller_Region(Sambamba_Filter_Haplotype_Phaseset_Region.out)
+    Sniffles2_Region(Sambamba_Filter_Haplotype_Phaseset_Region.out)
 
     // QC stats
     PICARD_CollectMultipleMetrics(bam_file)
