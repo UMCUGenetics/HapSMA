@@ -32,8 +32,8 @@ include { Minimap2 } from './Modules/Minimap2/2.26--he4a0461_1/Minimap2.nf' para
 include { Merge as Samtools_Merge } from './Modules/Samtools/1.15/Merge.nf'
 include { MultiQC } from './Modules/MultiQC/1.10/MultiQC.nf' params(optional: "--config $baseDir/assets/multiqc_config.yaml")
 include { PairsFromSummary as Duplex_PairsFromSummary } from './Modules/DuplexTools/0.2.17/PairsFromSummary.nf'
-include { Phase as Whatshap_Phase_Target_Bed } from './Modules/Whatshap/1.7/Phase.nf' params (genome: params.genome_fasta)
-include { Phase as Whatshap_Phase_Target_Region } from './Modules/Whatshap/1.7/Phase.nf' params (genome: params.genome_fasta)
+include { Polyphase as Whatshap_Polyphase_Target_Bed } from './Modules/Whatshap/1.7/Polyphase.nf' params (genome: params.genome_fasta)
+include { Polyphase as Whatshap_Polyphase_Target_Region } from './Modules/Whatshap/1.7/Polyphase.nf' params (genome: params.genome_fasta)
 include { ReBasecallingGuppy } from './Modules/Utils/GuppyBasecalling.nf'
 include { ViewSort as Sambamba_ViewSort_remap } from './Modules/Sambamba/1.0.0/ViewSort.nf'
 include { Clair3 as Clair3_Bed } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/Clair3.nf' params(
@@ -189,11 +189,11 @@ workflow {
     GATK_FilterSNV_Target_Bed(GATK_HaplotypeCaller_Bed.out)
 
     // Whatshapp polyphase (BED approach)
-    Whatshap_Phase_Target_Bed(GATK_FilterSNV_Target_Bed.out)
+    Whatshap_Polyphase_Target_Bed(GATK_FilterSNV_Target_Bed.out)
 
     // bgzip and index VCF (BED approach)
     Tabix_Zip_Index_Bed(
-        Whatshap_Phase_Target_Bed.out.map{sample_id, vcf_file, ploidy -> [sample_id, vcf_file]}
+        Whatshap_Polyphase_Target_Bed.out.map{sample_id, vcf_file, ploidy -> [sample_id, vcf_file]}
     )
 
     //Annotate Homopolymer VCF (BED approach)
@@ -255,11 +255,11 @@ workflow {
     GATK_FilterSNV_Target_Region(GATK_HaplotypeCaller_Region.out)
 
     // Whatshapp polyphase region (REGION approach)
-    Whatshap_Phase_Target_Region(GATK_FilterSNV_Target_Region.out)
+    Whatshap_Polyphase_Target_Region(GATK_FilterSNV_Target_Region.out)
 
     // bgzip and index VCF (REGION approach)
     Tabix_Zip_Index_Region(
-        Whatshap_Phase_Target_Region.out.map{sample_id, vcf_file, ploidy -> [sample_id, vcf_file]}
+        Whatshap_Polyphase_Target_Region.out.map{sample_id, vcf_file, ploidy -> [sample_id, vcf_file]}
     )
 
     //Annotate Homopolymer VCF (REGION approach)
