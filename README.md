@@ -48,7 +48,7 @@ To prevent downstream issues in variantcalling we would advise to always include
 
 
   * __rebase__
-    * start from raw sequencing containing FAST5 in the fast5_pass/ or fast5_fail/ folders
+    * start from raw sequencing containing FAST5 files in the fast5_pass/ or fast5_fail/ folders
     * input_path = full path to the sequence output folder containing FAST5 files
    
   * __bam__
