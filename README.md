@@ -42,7 +42,7 @@ SMA.config:
 workflow_path='/change/to/repository/path'
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow run SMA.nf -c SMA.config --input_path <input_path> --outdir <output_dir_path> --start <start> --ploidy <ploidy> --email <email> 
+$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config --input_path <input_path> --outdir <output_dir_path> --start <start> --ploidy <ploidy> --email <email> 
 ```
 
 ### --start and --input_path
