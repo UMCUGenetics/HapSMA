@@ -12,11 +12,7 @@ Note:
 * Workflow testing has been performed on UMC Utrecht HPC enviroment using SMA.config + SMA_umcu.config in wrapper run_nextflow_sma_umcu.sh.
 * Worfklow testing has only been perfromed using R9.4.1 sequencing data with guppy_6.1.2 basecalling.
 * General use of the workflow is described below using SMA.config, although some configuration might be needed dependent on your local infrastructure.
-* Reference genome need to be indexed:
-  * .fai using samtools faidx (tested version 1.15)
-  * .dict using picard CreateSequenceDictionary (tested version 3.0.0)
-  * (for rebasecalling only) .mmi using minimap2 -d (tested version 2.26)
-
+* Reference genome need to be indexed (see below in section "how to index the reference genome"
 
 ## Install OpenJDK and Nextflow within tools/ folder. Both are needed to run this workflow.
 ```bash
@@ -74,6 +70,23 @@ To prevent downstream issues in variantcalling we would advise to always include
     
 ### --ploidy
 * Estimated copy number of SMN1 + SMN2 (integer)
+
+## how to index the reference genome.
+### .fai with samtools (tested version 1.15)
+```bash
+samtools faidx <path_to_reference_fasta>
+```
+
+### .dict with Picard (tested version 3.0.0)
+```bash
+picard CreateSequenceDictionary -R <path_to_reference_fasta> -O <path_to_reference_fasta>.dict
+```
+
+### .mmi with minimap2 (tested version 2.26)
+(for rebasecalling only) .mmi using minimap2 -d (tested version 2.26)
+```bash
+minimap2 -d <path_to_reference_fasta>.mmi <path_to_reference_fasta>
+```
 
 # UMC Utrecht specific files
 SMA_umcu.config and run_nextflow_sma_umcu.sh are custom scripts to run the workflow on the UMC Utrecht HPC infrastructure.
