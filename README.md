@@ -41,7 +41,7 @@ nextflow run SMA.nf -c SMA.config --input_path <input_path> --outdir <output_dir
 
 ### --start and --input_path
 
-NextflowSMA can be started using different options (__rebase__, __bam__, __bam_single__) which require different input paths and assumes different files within this folder.
+NextflowSMA can be started using different options (__rebase__, __bam__, __bam_single__) which require different input paths and assumes different files within these folders.
 
 Optional for start __bam__ and __bam_single__ is the addition of ___remap__, in which reads will be remapped to the reference genome provided in SMA.config.\
 To prevent downstream issues in variantcalling we would advise to always include ___remap__ unless it is certain that the reference genome in SMA.config has also been used for mappping reads in the input BAM.
