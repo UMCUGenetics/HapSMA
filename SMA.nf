@@ -23,6 +23,7 @@ include { HaplotypeCaller_SMN as GATK_HaplotypeCaller_Bed } from './Modules/GATK
 include { HaplotypeCaller_SMN as GATK_HaplotypeCaller_Region } from './Modules/GATK/4.2.1.0/HaplotypeCaller.nf' params(genome: params.genome_fasta, compress: true, extention: "_region", optional:"--intervals $params.calling_target_region --dont-use-soft-clipped-bases --pair-hmm-implementation  LOGLESS_CACHING")
 include { Haplotag as Whatshap_Haplotag_Target_Bed } from './Modules/Whatshap/1.7/Haplotag.nf' params (genome: params.genome_fasta, extention: "_bed")
 include { Haplotag as Whatshap_Haplotag_Target_Region } from './Modules/Whatshap/1.7/Haplotag.nf' params (genome: params.genome_fasta, extention: "_region")
+include { Index as Sambamba_Index } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Deduplex } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_ReadGroup } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Target_Bed } from './Modules/Sambamba/1.0.0/Index.nf'
@@ -113,11 +114,11 @@ workflow {
     // Specific processes to sort and filter BAM based on start method.
     // Bams with Guppy summary_file output can have duplex deduplication while this is not possible for single BAM input
     if( params.start == 'bam_single' ||  params.start == 'bam_single_remap' ){
-        // Index MergeSort BAM
-        Sambamba_Index_Merge(bam_file.map{bam_file -> [params.sample_id, bam_file]})
+        // Index BAM
+        Sambamba_Index(bam_file.map{bam_file -> [params.sample_id, bam_file]})
 
         // Filter for minimum readlength
-        Sambamba_Filter_Condition(bam_file.combine(Sambamba_Index_Merge.out.map{sample_id, bai_file -> bai_file}))
+        Sambamba_Filter_Condition(bam_file.combine(Sambamba_Index.out.map{sample_id, bai_file -> bai_file}))
 
         bam_file = Sambamba_Filter_Condition.out
     }
