@@ -25,7 +25,7 @@ sbatch <<EOT
 #SBATCH --nodes=1
 #SBATCH --mem 10G
 #SBATCH --gres=tmpspace:16G
-#SBATCH --job-name Nextflow_SMA
+#SBATCH --job-name HapSMA
 #SBATCH -o log/slurm_nextflow_ont.%j.out
 #SBATCH -e log/slurm_nextflow_ont.%j.err
 #SBATCH --mail-user $email

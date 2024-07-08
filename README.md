@@ -1,4 +1,4 @@
-# NextflowSMA
+# HapSMA
 Workflow SMA for Oxford Nanopore Technologies sequencing data
 
 Requirements general use:
@@ -47,7 +47,7 @@ $workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.co
 
 ### --start and --input_path
 
-NextflowSMA has three start options (__rebase__, __bam__, __bam_single__) which all require input folders containing different structures and underlying files (see below).
+HapSMA has three start options (__rebase__, __bam__, __bam_single__) which all require input folders containing different structures and underlying files (see below).
 
 Optionally the suffix ___remap__ can be added to __bam__ and __bam_single__, this will enable remapping of the reads to the reference genome provided in SMA.config.\
 To prevent downstream issues in variant calling we would advise to always include ___remap__ unless it is certain that the reference genome in SMA.config has also been used for mappping reads in the input BAM.
