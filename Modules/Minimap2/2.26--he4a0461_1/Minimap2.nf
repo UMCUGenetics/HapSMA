@@ -12,7 +12,7 @@ process Minimap2 {
 
     script:
         def fastq_id = fastq.simpleName
-        def rg_id = "\"@RG\\tID:$fastq_id\\tSM:$fastq_id\\tPL:ONT\\tLB:$fastq_id\""
+        def rg_id = "\"@RG\\tID:$fastq_id\\tSM:$fastq_id\\tPL:$params.platform\\tLB:$fastq_id\""
         """
         minimap2 -t ${task.cpus} $params.optional -R $rg_id $params.genome_fasta $fastq > ${fastq_id}.sam
         """
