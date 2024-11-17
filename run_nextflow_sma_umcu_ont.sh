@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-workflow_path='/hpc/diaggen/projects/ONT_SMA_project/Pacbio_HapSMA/HapSMA_pacbio'
+workflow_path='/hpc/dlab_haaften/mzwartkruis/Martin_C9/HapSMA/HapSMA/'
 
 # Set input and output dirs
 echo " #### Running method targeted SMA specific + adaptive sequencing ####"
@@ -21,7 +21,7 @@ touch workflow.running
 
 sbatch <<EOT
 #!/bin/bash
-#SBATCH --time=144:00:00
+#SBATCH --time=72:00:00
 #SBATCH --nodes=1
 #SBATCH --mem 10G
 #SBATCH --gres=tmpspace:16G
