@@ -36,7 +36,7 @@ include { PairsFromSummary as Duplex_PairsFromSummary } from './Modules/DuplexTo
 include { Polyphase as Whatshap_Polyphase_Target_Bed } from './Modules/Whatshap/1.7/Polyphase.nf' params (genome: params.genome_fasta)
 include { Polyphase as Whatshap_Polyphase_Target_Region } from './Modules/Whatshap/1.7/Polyphase.nf' params (genome: params.genome_fasta)
 include { ReBasecallingGuppy } from './Modules/Utils/GuppyBasecalling.nf'
-include { ViewSort as Sambamba_ViewSort_remap } from './Modules/Sambamba/1.0.0/ViewSort.nf'
+include { ViewSort as Samtools_ViewSort } from './Modules/Samtools/1.15/ViewSort.nf'
 include { Clair3 as Clair3_Bed } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/Clair3.nf' params(
     genome: "$params.genome_fasta",
     clair3model: "$params.clair3model",
@@ -85,7 +85,7 @@ workflow {
     }
     else if( params.start == 'bam_single' || params.start == 'bam_single_remap'){
         //Get BAM file, and only BAM file as fast5 and summary are not available
-        bam_file = Channel.fromPath(params.input_path +  "/*.bam").toList()
+        bam_file = Channel.fromPath(params.input_path).toList()
     }
     else if( params.start == 'rebase' ){
         //Re-basecalling
@@ -163,9 +163,9 @@ workflow {
         Minimap2(Samtools_Fastq.out)
 
         // Sort SAM to BAM
-        Sambamba_ViewSort_remap(Minimap2.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
+        Samtools_ViewSort(Minimap2.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
 
-        bam_file = Sambamba_ViewSort_remap.out.map{sample_id, rg_id, bam_file, bai_file -> [bam_file, bai_file]}
+        bam_file = Samtools_ViewSort.out.map{sample_id, rg_id, bam_file, bai_file -> [bam_file, bai_file]}
 
     }
 

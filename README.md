@@ -42,7 +42,7 @@ SMA.config:
 workflow_path='/change/to/repository/path'
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config --input_path <input_path> --outdir <output_dir_path> --start <start> --ploidy <ploidy> --email <email> 
+$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config --input_path <input_path/input_path_to_bam> --outdir <output_dir_path> --start <start> --ploidy <ploidy> --email <email> 
 ```
 
 ### --start and --input_path
@@ -67,11 +67,11 @@ To prevent downstream issues in variant calling we would advise to always includ
      
   * __bam_single__
     * start from single bam file 
-    * input_path = full path to folder containing (only) one BAM file
+    * input_path = full path to BAM file
     
   * __bam_single_remap__
     * start from single bam file and perform remapping
-    * input_path = full path to folder containing (only) one BAM file
+    * input_path = full path to BAM file
      
     
 ### --ploidy
