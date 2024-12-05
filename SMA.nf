@@ -87,10 +87,10 @@ workflow {
         //Get BAM file, and only BAM file as fast5 and summary are not available
         //TODO: remove param single_bam_type and automate file/path detection
         if(params.single_bam_type == "folder"){
-            bam_file = Channel.fromPath(params.input_path).toList()
+            bam_file = Channel.fromPath(params.input_path + "/*.bam").toList()
         }
         else if (params.single_bam_type == "path"){
-            bam_file =  Channel.fromPath(params.input_path + "/*.bam").toList()
+            bam_file =  Channel.fromPath(params.input_path).toList()
         }
     }
     else if( params.start == 'rebase' ){
