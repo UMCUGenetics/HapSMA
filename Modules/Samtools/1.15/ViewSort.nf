@@ -20,6 +20,6 @@ process ViewSort {
     script:
         """
         samtools view --threads ${task.cpus} -S -b ${sam_file} | \
-        samtools sort --threads ${task.cpus} -m ${task.memory.toGiga()}G -o ${sam_file.baseName}.sort.bam##idx##${sam_file.baseName}.sort.bam.bai /dev/stdin --write-index
+        samtools sort --threads ${task.cpus} -m ${task.memory.toGiga()-4}G -o ${sam_file.baseName}.sort.bam##idx##${sam_file.baseName}.sort.bam.bai /dev/stdin --write-index
         """
 }
