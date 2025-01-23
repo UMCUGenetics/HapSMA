@@ -1,7 +1,7 @@
 process Clair3 {
     tag { "Clair3 ${bam_file.baseName}" }
     label 'Clair3_1_0_4'
-    container = 'quay.io/biocontainers/clair3:1.0.4--py39hf5e1c6e_3'
+    container = 'quay.io/nwankaew/clair3_add_r10_models:1.0.3'
     shell = ['/bin/bash', '-euo', 'pipefail']
 
     input:
