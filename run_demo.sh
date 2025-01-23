@@ -7,7 +7,7 @@ fi
 
 cd demo_analysis
 
-export NXF_HOME=$workflow_path/demo_analysis/
+export NXF_HOME=$workflow_path/demo_analysis/nextflow/
 export NXF_JAVA_HOME=$workflow_path/tools/java/jdk
 export NXF_APPTAINER_CACHEDIR=$workflow_path/demo_analysis/
 export SINGULARITY_CACHEDIR=$TMPDIR
