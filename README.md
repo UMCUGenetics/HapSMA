@@ -32,7 +32,7 @@ cpu = 1
 memory = 8GB  
 tmpspace = 16GB  
 
-#### *Note that de images used in HapSMA require ~5Gb of storage space*
+#### *Note that the total size of the images used in HapSMA is currenly ~5Gb*
 
 
 # 1) Analyzing demo data
