@@ -53,7 +53,7 @@ in which \<email\> should be replaced by the user email-address
 Data processing will take ~30 minutes.  
 
 A successfull analysis will result in an email with subject: "SMA Workflow Successful"  
-Processed data will be stored /demo_analysis/output
+Processed data will be stored in folder *demo_analysis/output*  
 
 # 2) Analyzing full datasets
 
