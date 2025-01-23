@@ -80,8 +80,8 @@ We recommend starting HapSMA using a single BAM file as input.
 The default workflow (R9.4.1) can be started with command:
 
 ```bash
-workflow_path='/change/to/repository/path'
-export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
+workflow_path="/change/to/repository/path"
+export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
 $workflow_path/tools/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
@@ -124,8 +124,8 @@ We recommend starting HapSMA using a single BAM file as input
 
 The workflow can be started with command:
 ```bash
-workflow_path='/change/to/repository/path'
-export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
+workflow_path="/change/to/repository/path"
+export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
 $workflow_path/tools/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
@@ -186,8 +186,8 @@ As these settings are highly dependent on the compute environment, we do not pro
 
 HapSMA including re-basecalling can be started using the following command:
 ```bash
-workflow_path='/change/to/repository/path'
-export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
+workflow_path="/change/to/repository/path"
+export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
 $workflow_path/tools/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
@@ -210,8 +210,8 @@ For this, two start options are available __bam__ or __bam_remap__, with the dif
 We advise to always perform remapping.  
 
 ```bash
-workflow_path='/change/to/repository/path'
-export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
+workflow_path="/change/to/repository/path"
+export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
 $workflow_path/tools/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
