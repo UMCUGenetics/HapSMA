@@ -18,7 +18,7 @@ Dependencies/ required software:
 * Nextflow      (tested version 23.10.0) 
 
 OpenJDK and Nextflow can be installed executing the following command in repo folder: 
-```bash
+`p``bash
 sh install.sh
 ``` 
 
@@ -59,7 +59,6 @@ Processed data will be stored in folder *demo_analysis/output*
 
 __Note:__   
 Although several options are available to start HapSMA we strongly advice to always provide a single BAM file as input and always perform re-mapping (option __bam_single_remap__).  
-
 Other options (see below in paragraph 3) were used for processing the data in the HapSMA manuscript but are __not recommended__ for general use. 
 ## Configure paths before use (needed for both ONT and Pacbio)
 Please configure the following parameters in SMA.config to your local settings:
@@ -83,19 +82,21 @@ The default workflow (R9.4.1) can be started with command:
 workflow_path="/change/to/repository/path"
 export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+$workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
     --input_path <input_path_to_bam> \
     --outdir <output_dir_path> \
     --start bam_single_remap \
     --single_bam_type path \
     --ploidy <ploidy> \
+    --sample_id <sampleID> \
     --email <email>
 ```
-* \<input_path_to_bam> full path to the input BAM file. 
-* \<output_dir_path> output folder path
-* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user.  
-* \<email> email address of the user
+* \<input_path_to_bam> full path to the input BAM file 
+* \<output_dir_path> output folder path  
+* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user  
+* \<sampleID> ID of the sample  
+* \<email> email address of the user  
 
 
 Optionally other ONT models can be used (including R10) by adding --clair3model to the command above
@@ -127,7 +128,7 @@ The workflow can be started with command:
 workflow_path="/change/to/repository/path"
 export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+$workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
     -c $workflow_path/SMA_Pacbio.config \
     --input_path <input_path_to_bam> \
@@ -135,12 +136,14 @@ $workflow_path/tools/nextflow run $workflow_path/SMA.nf \
     --start bam_single_remap \
     --single_bam_type path \
     --ploidy <ploidy> \
+    --sample_id <sampleID> \
     --email <email>
 ```
-* \<input_path_to_bam> full path to the input BAM file. 
-* \<output_dir_path> output folder path
-* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user.  
-* \<email> email address of the user
+* \<input_path_to_bam> full path to the input BAM file 
+* \<output_dir_path> output folder path  
+* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user  
+* \<sampleID> ID of the sample  
+* \<email> email address of the user  
 
 
 Optionally other Pacbio models can be used by adding --clair3model to the command above
@@ -189,19 +192,21 @@ HapSMA including re-basecalling can be started using the following command:
 workflow_path="/change/to/repository/path"
 export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+$workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
     --input_path <input_path> \
     --outdir <output_dir_path> \
     --start rebase \
     --ploidy <ploidy> \
+    --sample_id <sampleID> \
     --email <email>
 ```
 
-* \<input_path> full path to the sequence output folder containing fast5_pass/ and/or fast5_fail/ folders in which the FAST5 files are located.
-* \<output_dir_path> output folder path
-* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user.  
-* \<email> email address of the user
+* \<input_path> full path to the sequence output folder containing fast5_pass/ and/or fast5_fail/ folders in which the FAST5 files are located  
+* \<output_dir_path> output folder path  
+* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user  
+* \<sampleID> ID of the sample  
+* \<email> email address of the user  
 
 ### HapSMA starting from Guppy output folder
 
@@ -213,18 +218,20 @@ We advise to always perform remapping.
 workflow_path="/change/to/repository/path"
 export NXF_JAVA_HOME="${workflow_path}/tools/java/jdk"
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+$workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
     -c $workflow_path/SMA.config \
     --input_path <input_path> \
     --outdir <output_dir_path> \
     --start <bam/bam_remap> \
     --ploidy <ploidy> \
+    --sample_id <sampleID> \
     --email <email>
 ```
-* \<input_path> full path to Guppy output folder containing BAM files in the pass/ folder and sequencing_summary.txt in the root folder
-* \<output_dir_path> output folder path
-* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user.  
-* \<email> email address of the user
+* \<input_path> full path to Guppy output folder containing BAM files in the pass/ folder and sequencing_summary.txt in the root folder  
+* \<output_dir_path> output folder path  
+* \<ploidy> estimated copynumber of SMN1 and SMN2 combined (integer). This estimation is currently not supported within the workflow and should be provided by the user  
+* \<sampleID> ID of the sample  
+* \<email> email address of the user  
 
 
 # 4) How to index the reference genome.
