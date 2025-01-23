@@ -24,13 +24,13 @@ sh install.sh
 
 ### Minimal requirements compute resources (full analysis):
 cpu = 10  
-memory = 48GB
-tmpspace = 64GB
+memory = 48GB  
+tmpspace = 64GB  
 
 ### Minimal requirements compute resources (demo data analysis):
 cpu = 1  
-memory = 8GB
-tmpspace = 16GB
+memory = 8GB  
+tmpspace = 16GB  
 
 #### *Note that de images used in HapSMA require ~5Gb of storage space*
 
