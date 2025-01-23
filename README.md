@@ -18,7 +18,7 @@ Dependencies/ required software:
 * Nextflow      (tested version 23.10.0) 
 
 OpenJDK and Nextflow can be installed executing the following command in repo folder: 
-`p``bash
+```bash
 sh install.sh
 ``` 
 
