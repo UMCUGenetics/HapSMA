@@ -10,7 +10,7 @@ Although we aimed for easy deployment of HapSMA, we can not guarentee deployment
 # Requirements
 
 HapSMA is developed, optimized, and tested on Linux operating system with ARM64 processors.  
-Running the workflow on different operation systems and processor architecture should be possible but not supported.  
+Running the workflow on different operation systems and processor architecture should be possible but not tested.  
 
 Dependencies/ required software:
 * Singularity   (tested version 1.3.1)
