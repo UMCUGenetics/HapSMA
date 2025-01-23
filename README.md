@@ -5,7 +5,7 @@ HapSMA has primarily been developed to process ONT sequencing data (R9.4.1 pore 
 However, we also provide information to process PacBio and ONT R10 data using HapSMA.  
 
 Note that HapSMA has been developed and optimized (settings and resources) for the UMC Utrecht HPC environment (Linux AMD64, Slurm).  
-Although we aimed to make HapSMA with minimal dependencies, deployment on your own system might still require specific changes.  
+Although we aimed for easy deployment of HapSMA, we can not guarentee deployment on your own system as this might require specific changes.  
 
 # Requirements
 
