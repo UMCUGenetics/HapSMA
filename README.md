@@ -57,7 +57,7 @@ Processed data will be stored in folder *demo_analysis/output*
 
 # 2) Analyzing full datasets
 
-## __Note:__  
+__Note:__   
 Although several options are available to start HapSMA we strongly advice to always provide a single BAM file as input and always perform re-mapping (option __bam_single_remap__).  
 
 Other options (see below in paragraph 3) were used for processing the data in the HapSMA manuscript but are __not recommended__ for general use. 
