@@ -83,7 +83,14 @@ The default workflow (R9.4.1) can be started with command:
 workflow_path='/change/to/repository/path'
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config --input_path <input_path_to_bam> --outdir <output_dir_path> --start bam_single_remap --single_bam_type path --ploidy <ploidy> --email <email>
+$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+    -c $workflow_path/SMA.config \
+    --input_path <input_path_to_bam> \
+    --outdir <output_dir_path> \
+    --start bam_single_remap \
+    --single_bam_type path \
+    --ploidy <ploidy> \
+    --email <email>
 ```
 * \<input_path_to_bam> full path to the input BAM file. 
 * \<output_dir_path> output folder path
@@ -120,7 +127,15 @@ The workflow can be started with command:
 workflow_path='/change/to/repository/path'
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config -c $workflow_path/SMA_Pacbio.config --input_path <input_path_to_bam> --outdir <output_dir_path> --start bam_single_remap --single_bam_type path --ploidy <ploidy> --email <email>
+$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+    -c $workflow_path/SMA.config \
+    -c $workflow_path/SMA_Pacbio.config \
+    --input_path <input_path_to_bam> \
+    --outdir <output_dir_path> \
+    --start bam_single_remap \
+    --single_bam_type path \
+    --ploidy <ploidy> \
+    --email <email>
 ```
 * \<input_path_to_bam> full path to the input BAM file. 
 * \<output_dir_path> output folder path
@@ -174,7 +189,13 @@ HapSMA including re-basecalling can be started using the following command:
 workflow_path='/change/to/repository/path'
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config --input_path <input_path> --outdir <output_dir_path> --start rebase --ploidy <ploidy> --email <email>
+$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+    -c $workflow_path/SMA.config \
+    --input_path <input_path> \
+    --outdir <output_dir_path> \
+    --start rebase \
+    --ploidy <ploidy> \
+    --email <email>
 ```
 
 * \<input_path> full path to the sequence output folder containing fast5_pass/ and/or fast5_fail/ folders in which the FAST5 files are located.
@@ -192,7 +213,13 @@ We advise to always perform remapping.
 workflow_path='/change/to/repository/path'
 export NXF_JAVA_HOME='$workflow_path/tools/java/jdk'
 
-$workflow_path/tools/nextflow run $workflow_path/SMA.nf -c $workflow_path/SMA.config --input_path <input_path> --outdir <output_dir_path> --start <bam/bam_remap> --ploidy <ploidy> --email <email>
+$workflow_path/tools/nextflow run $workflow_path/SMA.nf \
+    -c $workflow_path/SMA.config \
+    --input_path <input_path> \
+    --outdir <output_dir_path> \
+    --start <bam/bam_remap> \
+    --ploidy <ploidy> \
+    --email <email>
 ```
 * \<input_path> full path to Guppy output folder containing BAM files in the pass/ folder and sequencing_summary.txt in the root folder
 * \<output_dir_path> output folder path
