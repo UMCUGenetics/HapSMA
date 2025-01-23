@@ -68,7 +68,7 @@ Please configure the following parameters in SMA.config to your local settings:
   genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna). note that  the reference genome needs an index (.fai) and a dictionary (.dict)
   calling_target_bed    	full path to "position specific" GATK ploidy aware variant calling that will be used in phasing (.bed)
   calling_target_region 	region of interest for GATK ploidy aware variant calling that will be used in phasing (chr:start-stop, i.e. chr5:71274893-71447410)
-  phaseset_region	region of interest to determine phaseset which will be used to make haplotag specific BAMs (chr:start-stop, i.e. chr5:71392465-71409463)
+  phaseset_region		region of interest to determine phaseset which will be used to make haplotag specific BAMs (chr:start-stop, i.e. chr5:71392465-71409463)
   homopolymer_bed       	full path to homopolymer region of reference genome that will be used to annotate VCFs (.bed)
 </pre>
 
