@@ -4,8 +4,7 @@ HapSMA has primarily been developed to process ONT sequencing data (R9.4.1 pore 
 However, we also provide information to process PacBio and ONT R10 data using HapSMA.  
 Use of HapSMA with PacBio data is not recommended; we recommend to use [Paraphase](https://github.com/PacificBiosciences/paraphase) instead.  
 
-Note that HapSMA has been developed and optimized (settings and resources) for the Utrecht HPC environment (Linux AMD64, Slurm).  
-Although we aimed for easy deployment of HapSMA, we can not guarentee deployment on your own system.  
+Note that HapSMA has been developed and optimized (settings and resources) for the Utrecht HPC environment (Linux AMD64, Slurm). Although we aimed for easy deployment of HapSMA, we can not guarentee deployment on your own system.  
 
 # Requirements
 HapSMA is developed, optimized, and tested on Linux operating system with AMD64 processors.  
@@ -50,7 +49,6 @@ Processed data will be stored in folder `demo_analysis/output`.
 
 # 2) Analyzing full datasets
 
-__Note:__   
 Although several options are available to start HapSMA we strongly advise to always provide a single BAM file as input and always perform re-mapping (option __bam_single_remap__).  
 Other options (see below in paragraph 3) were used for processing the data in the HapSMA manuscript but are __not recommended__ for general use. 
 ## Configure paths before use (needed for both ONT and Pacbio)
@@ -170,8 +168,7 @@ Change the following Guppy specific parameter in SMA.config:
 
 For more information of the .mmi index, see paragraph 4.
 
-Re-basecalling with Guppy requires the use of GPUs. Make sure setting in SMA.config are configured to correct settings.  
-As these settings are highly dependent on the compute environment, we do not provide additional support.  
+Re-basecalling with Guppy requires the use of GPUs. Make sure setting in SMA.config are configured to correct settings. As these settings are highly dependent on the compute environment, we do not provide additional support.  
 
 HapSMA including re-basecalling can be started using the following command:
 ```bash
@@ -196,8 +193,7 @@ $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
 
 ### HapSMA starting from Guppy output folder
 Optionally, HapSMA can also be started based on the Guppy (v6.1.2) output folder containing BAM files.
-For this, two start options are available __bam__ or __bam_remap__, with the difference that __bam_remap__ will remap the reads to the reference genome provide in SMA.config.  
-We advise to always perform remapping.  
+For this, two start options are available __bam__ or __bam_remap__, with the difference that __bam_remap__ will remap the reads to the reference genome provide in SMA.config. We advise to always perform remapping.  
 
 ```bash
 workflow_path="/change/to/repository/path"
