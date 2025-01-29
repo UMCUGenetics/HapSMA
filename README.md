@@ -38,6 +38,7 @@ Download and unpack the demo dataset (within the root folder of the Git reposito
 wget  https://zenodo.org/records/14762937/files/demo_data_HapSMA.tar.gz
 mkdir ./demodata && tar -xzvf demo_data_HapSMA.tar.gz --directory ./demodata
 ```
+Demo data BAM file (HG02071) is download from Human PanGenomics Project (https://registry.opendata.aws/hpgp-data/).  
 
 Demo data can be analyzed executing the following command in which \<email\> should be replaced by the user email-address:  
 ``` 
