@@ -1,6 +1,5 @@
 # HapSMA
 Workflow HapSMA to process long-read sequencing data for the SMA locus.  
-
 HapSMA has primarily been developed to process ONT sequencing data (R9.4.1 pore and chemistry).  
 However, we also provide information to process PacBio and ONT R10 data using HapSMA.  
 Use of HapSMA with PacBio data is not recommended; we recommend to use [Paraphase](https://github.com/PacificBiosciences/paraphase) instead.  
@@ -9,7 +8,6 @@ Note that HapSMA has been developed and optimized (settings and resources) for t
 Although we aimed for easy deployment of HapSMA, we can not guarentee deployment on your own system.  
 
 # Requirements
-
 HapSMA is developed, optimized, and tested on Linux operating system with AMD64 processors.  
 Running the workflow on different operation systems and/or processor architecture should be possible, but not tested.  
 
@@ -22,19 +20,15 @@ OpenJDK and Nextflow can be installed executing the following command:
 ```bash
 sh install.sh
 ``` 
-
 ### Minimal requirements compute resources (full analysis):
 cpu = 10  
 memory = 48GB  
 tmpspace = 64GB  
-
 ### Minimal requirements compute resources (demo data analysis):
 cpu = 1  
 memory = 8GB  
 tmpspace = 16GB  
-
 #### *Note that the total size of the containers used in HapSMA is currenly ~5Gb.*
-
 
 # 1) Analyzing demo data
 We've included a demo dataset to test the workflow.
@@ -51,7 +45,6 @@ Demo data can be analyzed executing the following command in which \<email\> sho
 sh run_demo.sh <email>
 ```
 Data processing will take ~75 minutes.  
-
 A successfull analysis will result in an email with subject: "SMA Workflow Successful".    
 Processed data will be stored in folder `demo_analysis/output`.  
 
@@ -62,7 +55,6 @@ Although several options are available to start HapSMA we strongly advise to alw
 Other options (see below in paragraph 3) were used for processing the data in the HapSMA manuscript but are __not recommended__ for general use. 
 ## Configure paths before use (needed for both ONT and Pacbio)
 Please configure the following parameters in SMA.config to your local settings:
-
 <pre>
   genome_fasta          	full path to reference genome fasta (.fasta/.fa/.fna). note that  the reference genome needs an index (.fai) and a dictionary (.dict).
   calling_target_bed    	full path to "position specific" GATK ploidy aware variant calling that will be used in phasing (.bed).
@@ -70,11 +62,9 @@ Please configure the following parameters in SMA.config to your local settings:
   phaseset_region		region of interest to determine phaseset which will be used to make haplotag specific BAMs (chr:start-stop, i.e. chr5:71392465-71409463).
   homopolymer_bed       	full path to homopolymer region of reference genome that will be used to annotate VCFs (.bed).
 </pre>
-
 For more information of the reference genome indexing, see paragraph 4.
 
 See https://github.com/UMCUGenetics/ManuscriptSMNGeneConversion/ to find an example of calling_target_bed (paraphase_SNPs_UCSC_liftover_T2T_CHM13_manual_SNPs_2_sorted_20b_22b.bed) and instructions how to make and homopolymer_bed file.  
-
 
 ## Running SMA workflow ONT data 
 We recommend starting HapSMA using a single BAM file as input.  
@@ -100,12 +90,10 @@ $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
 * \<sampleID> ID of the sample.  
 * \<email> email address of the user.  
 
-
 Optionally other ONT models can be used (including R10) by adding --clair3model to the command above:
 ```
 --clair3model /opt/models/<model> 
 ```
-
 Current implementation supports these models:  
 <pre>
 r941_prom_hac_g238
@@ -117,12 +105,9 @@ r1041_e82_400bps_sup_v430
 r1041_e82_400bps_sup_v500
 </pre>
 
-
-
 #### Computational efficiency  
 Data processing time is dependent on the original sequence coverage.  
 Typically processing 
-
 
 ## Running SMA workflow PacBio data
 We recommend starting HapSMA using a single BAM file as input.
@@ -149,7 +134,6 @@ $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
 * \<sampleID> ID of the sample.  
 * \<email> email address of the user.  
 
-
 Optionally other Pacbio models can be used by adding --clair3model to the command above:
 ```
 --clair3model /opt/models/<model> 
@@ -161,11 +145,9 @@ hifi_revio      (default)
 hifi_sequal2
 </pre>
 
-
 #### Computational efficiency
 Data processing time is dependent on the original sequence coverage.  
 Typically processing 
-
 
 # 3) Manuscript specific settings and options
 
@@ -173,11 +155,9 @@ Full data analysis is recommended starting from a single BAM file using (both fo
 ```
 --input_path <input_path_to_bam> --start bam_single_remap --single_bam_type path
 ```
-
 For ONT data we provided an additional start option based on raw sequencing data (including re-basecalling) and Guppy output folders.
 
 ### HapSMA including re-basecalling using Guppy
-
 HapSMA has support for re-basecalling raw sequencing data (FAST5) using Guppy software (tested v6.1.2).
 
 * Rebase(calling) requires local install of Guppy 6.1.2.  
@@ -215,7 +195,6 @@ $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
 * \<email> email address of the user.  
 
 ### HapSMA starting from Guppy output folder
-
 Optionally, HapSMA can also be started based on the Guppy (v6.1.2) output folder containing BAM files.
 For this, two start options are available __bam__ or __bam_remap__, with the difference that __bam_remap__ will remap the reads to the reference genome provide in SMA.config.  
 We advise to always perform remapping.  
@@ -239,28 +218,22 @@ $workflow_path/tools/nextflow/nextflow run $workflow_path/SMA.nf \
 * \<sampleID> ID of the sample.  
 * \<email> email address of the user.  
 
-
 # 4) How to index the reference genome.
 The reference genome in SMA.config must be indexed using Samtools, Picard and (optionally) Minimap2.  
 Make sure that the index files are present in the same folder as the reference genome.
-
 ### .fai with samtools (tested version 1.15)
 ```bash
 samtools faidx <path_to_reference_fasta>
 ```
-
 ### .dict with Picard (tested version 3.0.0)
 ```bash
 picard CreateSequenceDictionary -R <path_to_reference_fasta> -O <path_to_reference_fasta>.dict
 ```
-
 ### .mmi with minimap2 (tested version 2.26)
 *Only needed if rebasecalling with Guppy is performed*
 ```bash
 minimap2 -d <path_to_reference_fasta>.mmi <path_to_reference_fasta>
 ```
-
 # 5) Utrecht specific scripts
-
 SMA_umcu.config, run_nextflow_sma_umcu_ont.sh, run_nextflow_sma_umcu_pacbio.sh are specifically made to run HapSMA on the Utrecht HPC infrastructure.  
 Please do not use these, although they could serve as a template for your specific compute environment.  
