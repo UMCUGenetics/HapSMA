@@ -231,5 +231,4 @@ picard CreateSequenceDictionary -R <path_to_reference_fasta> -O <path_to_referen
 minimap2 -d <path_to_reference_fasta>.mmi <path_to_reference_fasta>
 ```
 # 5) Utrecht specific scripts
-SMA_umcu.config, run_nextflow_sma_umcu_ont.sh, run_nextflow_sma_umcu_pacbio.sh are specifically made to run HapSMA on the Utrecht HPC infrastructure.  
-Please do not use these, although they could serve as a template for your specific compute environment.  
+SMA_umcu.config, run_nextflow_sma_umcu_ont.sh, run_nextflow_sma_umcu_pacbio.sh are specifically made to run HapSMA on the Utrecht HPC infrastructure. Please do not use these, although they could serve as a template for your specific compute environment.  
