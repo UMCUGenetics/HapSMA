@@ -46,6 +46,10 @@ Data processing will take ~75 minutes.
 A successfull analysis will result in an email with subject: "SMA Workflow Successful".    
 Processed data will be stored in folder `demo_analysis/output`.  
 
+We have included output data (BAM files and VCF files) within the 'demodata/results/' folder that can be used to compare results (i.e with bcftools isec for comparisons of VCFs).  
+Note that small differences can occur due to the use of different compute environments.
+
+
 # 2) Analyzing full datasets
 
 Although several options are available to start HapSMA we strongly advise to always provide a single BAM file as input and always perform re-mapping (option __bam_single_remap__).  
