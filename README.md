@@ -104,7 +104,8 @@ r1041_e82_400bps_sup_v500
 
 #### Computational efficiency  
 Data processing time highly dependent on sequence coverage, data quality, and copynumber.  
-Analysis of a chromosome 5 filtered WGS BAM file (~30X) will take approximately 4 hours.
+Analysis of a chromosome 5 filtered WGS BAM file (~30X) will take approximately 4 hours using default resources (cpu = 10, memory = 48GB).
+
 
 ## Running SMA workflow PacBio data
 We recommend starting HapSMA using a single BAM file as input.
@@ -144,7 +145,7 @@ hifi_sequal2
 
 #### Computational efficiency
 Data processing time highly dependent on sequence coverage, data quality, and copynumber.
-Analysis of a chromosome 5 filtered WGS BAM file (~30X) will take approximately 1 hour.
+Analysis of a chromosome 5 filtered WGS BAM file (~30X) will take approximately 1 hour using default resources (cpu = 10, memory = 48GB).
 
 # 3) Manuscript specific settings and options
 
