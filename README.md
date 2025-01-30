@@ -144,7 +144,7 @@ hifi_sequal2
 
 #### Computational efficiency
 Data processing time highly dependent on sequence coverage, data quality, and copynumber.
-Analysis of a chromosome 5 filtered WGS BAM file (~30X) will take approximately 3 hours.
+Analysis of a chromosome 5 filtered WGS BAM file (~30X) will take approximately 1 hour.
 
 # 3) Manuscript specific settings and options
 
