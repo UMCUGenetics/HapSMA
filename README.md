@@ -14,7 +14,7 @@ Dependencies/ required software:
 * Singularity   (tested version 1.3.1)
 * OpenJDK       (tested version jdk21.0.2)
 * Nextflow      (tested version 23.10.0)
-* wget		(tested version1.19.5)
+* wget		(tested version 1.19.5)
 
 OpenJDK and Nextflow can be installed executing the following command: 
 ```bash
