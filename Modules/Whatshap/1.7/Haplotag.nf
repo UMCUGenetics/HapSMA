@@ -18,6 +18,7 @@ process Haplotag {
             $bam_file \
             -o ${bam_file.simpleName}_tagged${params.extention}.bam \
             --reference  $params.genome \
-            --ploidy $ploidy
+            --ploidy $ploidy \
+            ${params.optional}
         """
 }
