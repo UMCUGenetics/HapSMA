@@ -42,6 +42,7 @@ echo "Downloading and installing Nextflow"
 
 cd ${repo_dir}/tools/nextflow
 
+export NXF_HOME=${repo_dir}
 export NXF_JAVA_HOME=${repo_dir}'/tools/java/jdk'
 export NXF_VER=${nextflow_version}
 

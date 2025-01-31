@@ -9,7 +9,7 @@ include { Annotate as Bcftools_Annotate_Region } from './Modules/bcftools/1.15.1
 include { CollectMultipleMetrics as PICARD_CollectMultipleMetrics } from './Modules/Picard/2.26.4/CollectMultipleMetrics.nf' params(genome:"$params.genome_fasta", optional: "PROGRAM=null PROGRAM=CollectAlignmentSummaryMetrics METRIC_ACCUMULATION_LEVEL=null METRIC_ACCUMULATION_LEVEL=SAMPLE")
 include { CollectWgsMetrics as PICARD_CollectWgsMetrics } from './Modules/Picard/2.26.4/CollectWgsMetrics.nf' params(genome:"$params.genome_fasta", optional: "MINIMUM_MAPPING_QUALITY=1 MINIMUM_BASE_QUALITY=1 ")
 include { ExportParams as Workflow_ExportParams } from './Modules/Utils/workflow.nf'
-include { Fastq as Samtools_Fastq } from './Modules/Samtools/1.15/Fastq.nf' params(tags: " -T RG,Mm,Ml,MM,ML ", roi: params.roi_fastq)
+include { Fastq as Samtools_Fastq } from './Modules/Samtools/1.15/Fastq.nf' params(tags:" -T $params.tags", roi: params.roi_fastq)
 include { FilterCondition as Sambamba_Filter_Condition } from './Modules/Sambamba/1.0.0/Filter.nf' params(conditions: params.conditions)
 include { FilterHaplotypePhaseset as Sambamba_Filter_Haplotype_Phaseset_Bed } from './Modules/Sambamba/1.0.0/Filter.nf'
 include { FilterHaplotypePhaseset as Sambamba_Filter_Haplotype_Phaseset_Region } from './Modules/Sambamba/1.0.0/Filter.nf'
@@ -21,31 +21,31 @@ include { GetPhaseSet as GetPhaseSet_Bed } from './Modules/Utils/GetPhaseSet.nf'
 include { GetPhaseSet as GetPhaseSet_Region } from './Modules/Utils/GetPhaseSet.nf'
 include { HaplotypeCaller_SMN as GATK_HaplotypeCaller_Bed } from './Modules/GATK/4.2.1.0/HaplotypeCaller.nf' params(genome: params.genome_fasta, compress: true, extention: "_bed", optional:"--intervals $params.calling_target_bed --dont-use-soft-clipped-bases --pair-hmm-implementation  LOGLESS_CACHING")
 include { HaplotypeCaller_SMN as GATK_HaplotypeCaller_Region } from './Modules/GATK/4.2.1.0/HaplotypeCaller.nf' params(genome: params.genome_fasta, compress: true, extention: "_region", optional:"--intervals $params.calling_target_region --dont-use-soft-clipped-bases --pair-hmm-implementation  LOGLESS_CACHING")
-include { Haplotag as Whatshap_Haplotag_Target_Bed } from './Modules/Whatshap/1.7/Haplotag.nf' params (genome: params.genome_fasta, extention: "_bed")
-include { Haplotag as Whatshap_Haplotag_Target_Region } from './Modules/Whatshap/1.7/Haplotag.nf' params (genome: params.genome_fasta, extention: "_region")
+include { Haplotag as Whatshap_Haplotag_Target_Bed } from './Modules/Whatshap/1.7/Haplotag.nf' params (genome: params.genome_fasta, extention: "_bed", optional: "--ignore-read-groups")
+include { Haplotag as Whatshap_Haplotag_Target_Region } from './Modules/Whatshap/1.7/Haplotag.nf' params (genome: params.genome_fasta, extention: "_region", optional: "--ignore-read-groups")
 include { Index as Sambamba_Index } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Deduplex } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_ReadGroup } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Target_Bed } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Target_Region } from './Modules/Sambamba/1.0.0/Index.nf'
 include { Index as Sambamba_Index_Merge } from './Modules/Sambamba/1.0.0/Index.nf'
-include { Minimap2 } from './Modules/Minimap2/2.26--he4a0461_1/Minimap2.nf' params(optional: " -y -ax map-ont", genome_fasta: params.genome_fasta)
+include { Minimap2 } from './Modules/Minimap2/2.26--he4a0461_1/Minimap2.nf' params(optional:params.minimap_param, genome_fasta: params.genome_fasta, platform: params.platform)
 include { Merge as Samtools_Merge } from './Modules/Samtools/1.15/Merge.nf'
 include { MultiQC } from './Modules/MultiQC/1.10/MultiQC.nf' params(optional: "--config $baseDir/assets/multiqc_config.yaml")
 include { PairsFromSummary as Duplex_PairsFromSummary } from './Modules/DuplexTools/0.2.17/PairsFromSummary.nf'
 include { Polyphase as Whatshap_Polyphase_Target_Bed } from './Modules/Whatshap/1.7/Polyphase.nf' params (genome: params.genome_fasta)
 include { Polyphase as Whatshap_Polyphase_Target_Region } from './Modules/Whatshap/1.7/Polyphase.nf' params (genome: params.genome_fasta)
 include { ReBasecallingGuppy } from './Modules/Utils/GuppyBasecalling.nf'
-include { ViewSort as Sambamba_ViewSort_remap } from './Modules/Sambamba/1.0.0/ViewSort.nf'
+include { ViewSort as Samtools_ViewSort } from './Modules/Samtools/1.15/ViewSort.nf'
 include { Clair3 as Clair3_Bed } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/Clair3.nf' params(
     genome: "$params.genome_fasta",
     clair3model: "$params.clair3model",
-    optional: " --haploid_sensitive --platform=ont --enable_long_indel"
+    optional: "$params.clair3_optional"
 )
 include { Clair3 as Clair3_Region } from './Modules/Clair3/1.0.4--py39hf5e1c6e_3/Clair3.nf' params(
     genome: "$params.genome_fasta",
     clair3model: "$params.clair3model",
-    optional: " --haploid_sensitive --platform=ont --enable_long_indel"
+    optional: "$params.clair3_optional"
 )
 include { Sniffles2 as Sniffles2_Bed } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
 include { Sniffles2 as Sniffles2_Region } from './Modules/Sniffles2/2.2--pyhdfd78af_0/Sniffles2.nf' params(optional: "")
@@ -85,7 +85,13 @@ workflow {
     }
     else if( params.start == 'bam_single' || params.start == 'bam_single_remap'){
         //Get BAM file, and only BAM file as fast5 and summary are not available
-        bam_file = Channel.fromPath(params.input_path +  "/*.bam").toList()
+        //TODO: remove param single_bam_type and automate file/path detection
+        if(params.single_bam_type == "folder"){
+            bam_file = Channel.fromPath(params.input_path + "/*.bam").toList()
+        }
+        else if (params.single_bam_type == "path"){
+            bam_file =  Channel.fromPath(params.input_path).toList()
+        }
     }
     else if( params.start == 'rebase' ){
         //Re-basecalling
@@ -163,9 +169,9 @@ workflow {
         Minimap2(Samtools_Fastq.out)
 
         // Sort SAM to BAM
-        Sambamba_ViewSort_remap(Minimap2.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
+        Samtools_ViewSort(Minimap2.out.map{fastq, sam_file -> [params.sample_id, fastq , sam_file]})
 
-        bam_file = Sambamba_ViewSort_remap.out.map{sample_id, rg_id, bam_file, bai_file -> [bam_file, bai_file]}
+        bam_file = Samtools_ViewSort.out.map{sample_id, rg_id, bam_file, bai_file -> [bam_file, bai_file]}
 
     }
 
@@ -343,7 +349,6 @@ workflow.onComplete {
             to: params.email.trim(),
             subject: subject,
             body: email_html,
-            attach: "${params.outdir}/QC/${analysis_id}_multiqc_report.html"
         )
 
     } else {

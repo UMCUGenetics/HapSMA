@@ -12,9 +12,15 @@ def get_phaseset_from_vcf(input_vcf, region):
         if phaseset:
             phasesets.append(phaseset)
 
-    if len(set(phasesets)) == 1:
+    if len(set(phasesets)) == 0:
+        raise ValueError(
+                f"No PhaseSet was detected within region {region}. Please increase this region"
+            )
+
+    elif len(set(phasesets)) == 1:
         return list(set(phasesets))[0]
-    else:  # if not unique phaseset is detected in roi, pick most prevelant
+
+    else:  # if no unique phaseset is detected in roi, pick most prevelant
         count_dic = {}
         total_count = 0
         for ps_group in phasesets:
@@ -22,7 +28,6 @@ def get_phaseset_from_vcf(input_vcf, region):
                 count_dic[ps_group] = 0
             count_dic[ps_group] += 1
             total_count += 1
-
         max_count = max(count_dic.values())
         if max_count/total_count > args.freq:
             max_keys = [key for key in count_dic if count_dic[key] == max_count]
